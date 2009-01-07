@@ -1,7 +1,7 @@
 require 'cdfutils'
 require 'mail2screen'
 
-module Webmail::WebmailHelper
+module WebmailHelper
   include Mail2Screen
   def link_folders
     link_to(_('Folders'), :controller=>"/webmail/webmail", :action=>"messages")

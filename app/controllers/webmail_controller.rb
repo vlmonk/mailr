@@ -4,7 +4,7 @@ require 'net/imap'
 require 'mail2screen'
 require 'ezcrypto'
 
-class Webmail::WebmailController < ApplicationController
+class WebmailController < ApplicationController
 #   uses_component_template_root
   
   # Administrative functions
@@ -365,7 +365,7 @@ class Webmail::WebmailController < ApplicationController
       load_folders
     rescue Exception => ex
       logger.error("Exception on loggin webmail session - #{ex} - #{ex.backtrace.join("\t\n")}")
-      render_action "error_connection"
+      render :action => "error_connection"
     end   
   end
   

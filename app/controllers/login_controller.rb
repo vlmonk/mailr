@@ -19,7 +19,7 @@ class LoginController < ApplicationController
         session["wmp"] = params['login_user']["password"]
       end  
       if session["return_to"]
-        redirect_to_path(session["return_to"])
+        redirect_to(session["return_to"])
         session["return_to"] = nil
       else
         redirect_to :action=>"index" 
