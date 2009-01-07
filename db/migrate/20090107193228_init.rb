@@ -21,7 +21,8 @@ class Init < ActiveRecord::Migration
 
     create_table :mail_prefs do |t|
       t.string :mail_type
-      t.integer :wm_rows, :customer_id
+      t.integer :wm_rows, :default => 20
+      t.integer :customer_id
       t.boolean :check_external_mail
       t.timestamps
     end

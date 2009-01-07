@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(:version => 20090107193228) do
 
   create_table "mail_prefs", :force => true do |t|
     t.string   "mail_type"
-    t.integer  "wm_rows"
+    t.integer  "wm_rows",             :default => 20
     t.integer  "customer_id"
     t.boolean  "check_external_mail"
     t.datetime "created_at"

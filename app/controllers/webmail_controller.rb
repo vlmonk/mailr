@@ -37,9 +37,9 @@ class WebmailController < ApplicationController
   
   def manage_folders
     if operation_param == _('Add folder')
-      @mailbox.create_folder(CDF::CONFIG[:mail_inbox]+"."+@params["folder_name"])
+      @mailbox.create_folder(CDF::CONFIG[:mail_inbox]+"."+params["folder_name"])
     elsif operation_param == _('(Delete)')
-      @mailbox.delete_folder(@params["folder_name"])
+      @mailbox.delete_folder(params["folder_name"])
     elsif operation_param == _('(Subscribe)')
     elsif operation_param == _('(Select)')
     end
@@ -47,15 +47,15 @@ class WebmailController < ApplicationController
   end
   
   def messages
-    @session["return_to"] = nil
-    @search_field = @params['search_field']
-    @search_value = @params['search_value']
+    session["return_to"] = nil
+    @search_field = params['search_field']
+    @search_value = params['search_value']
     
     # handle sorting - tsort session field contains last reverse or no for field
     # and lsort - last sort field
-    if @session['tsort'].nil? or @session['lsort'].nil?
-      @session['lsort'] = "DATE"
-      @session['tsort'] = {"DATE" => true, "FROM" => true, "SUBJECT" => true, "TO" => false}
+    if session['tsort'].nil? or session['lsort'].nil?
+      session['lsort'] = "DATE"
+      session['tsort'] = {"DATE" => true, "FROM" => true, "SUBJECT" => true, "TO" => false}
     end
     
     case operation_param
@@ -78,27 +78,27 @@ class WebmailController < ApplicationController
     when _('mark unread') # mark as unread
       messages_param.each { |msg_id, bool| msg = folder.mark_unread(msg_id.to_i) if bool == BOOL_ON }  if messages_param
     when "SORT"
-      @session['lsort'] = sort_query = @params["scc"]
-      @session['tsort'][sort_query] = (@session['tsort'][sort_query]? false : true)
-      @search_field, @search_value = @session['search_field'], @session['search_value']
+      session['lsort'] = sort_query = params["scc"]
+      session['tsort'][sort_query] = (session['tsort'][sort_query]? false : true)
+      @search_field, @search_value = session['search_field'], session['search_value']
     when _('Search') # search  
-      @session['search_field'] = @search_field
-      @session['search_value'] = @search_value
+      session['search_field'] = @search_field
+      session['search_value'] = @search_value
     when _('Show all') # search  
-      @session['search_field'] = @search_field = nil
-      @session['search_value'] = @search_value = nil
+      session['search_field'] = @search_field = nil
+      session['search_value'] = @search_value = nil
     else
       # get search criteria from session
-      @search_field = @session['search_field']
-      @search_value = @session['search_value']
+      @search_field = session['search_field']
+      @search_value = session['search_value']
     end
     
-    sort_query = @session['lsort']
-    reverse_sort = @session['tsort'][sort_query]
+    sort_query = session['lsort']
+    reverse_sort = session['tsort'][sort_query]
     query = ["ALL"]
-    @page = @params["page"]
-    @page ||= @session['page']
-    @session['page'] = @page
+    @page = params["page"]
+    @page ||= session['page']
+    session['page'] = @page
     if @search_field and @search_value and not(@search_field.strip() == "") and not(@search_value.strip() == "")
       @pages = Paginator.new self, 0, get_mail_prefs.wm_rows, @page
       @messages = folder.messages_search([@search_field, @search_value], sort_query + (reverse_sort ? ' desc' : ' asc'))
@@ -154,7 +154,7 @@ class WebmailController < ApplicationController
       elsif operation == _('Add')
         @mail = create_mail
         attachment = CDF::Attachment.new(@mail)
-        attachment.file = @params['attachment']
+        attachment.file = params['attachment']
       else
         # default - new email create
         @mail = create_mail
@@ -184,7 +184,7 @@ class WebmailController < ApplicationController
     
     if mail.multipart?
       get_parts(mail).each { |part|  
-        return send_part(part) if part.header and part.header['content-type']['name'] == @params['ctype'] 
+        return send_part(part) if part.header and part.header['content-type']['name'] == params['ctype'] 
       }
       render("webmail/webmail/noattachment")
     else  
@@ -198,15 +198,15 @@ class WebmailController < ApplicationController
       @mailpref = MailPref.create("customer_id"=>logged_customer)
     end
     
-    if @params['op'] == _('Save')
-      if @params['customer']
-        @customer.fname = @params['customer']['fname']
-        @customer.lname = @params['customer']['lname']
+    if params['op'] == _('Save')
+      if params['customer']
+        @customer.fname = params['customer']['fname']
+        @customer.lname = params['customer']['lname']
         @customer.save
       end
-      @mailpref.attributes = @params["mailpref"]      
+      @mailpref.attributes = params["mailpref"]      
       @mailpref.save
-      @session["wmimapseskey"] = nil
+      session["wmimapseskey"] = nil
       redirect_to(:action=>"messages")
     end
   end
@@ -216,16 +216,16 @@ class WebmailController < ApplicationController
   end
   
   def filter
-    if @params['op']
-      @filter = Filter.new(@params['filter'])
+    if params['op']
+      @filter = Filter.new(params['filter'])
       @filter.customer_id = logged_customer
-      @params['expression'].each { |index, expr| @filter.expressions << Expression.new(expr) unless expr["expr_value"].nil? or expr["expr_value"].strip == ""  }
-      case @params['op']
+      params['expression'].each { |index, expr| @filter.expressions << Expression.new(expr) unless expr["expr_value"].nil? or expr["expr_value"].strip == ""  }
+      case params['op']
       when _('Add')
         @filter.expressions << Expression.new
       when _('Save')  
-        if @params['filter']['id'] and @params['filter']['id'] != ""
-          @sf = Filter.find(@params['filter']['id'])
+        if params['filter']['id'] and params['filter']['id'] != ""
+          @sf = Filter.find(params['filter']['id'])
           @sf.name, @sf.destination_folder = @filter.name, @filter.destination_folder
           @sf.expressions.each{|expr| Expression.delete(expr.id) }
           @filter.expressions.each {|expr| @sf.expressions << Expression.create(expr.attributes) }
@@ -241,14 +241,14 @@ class WebmailController < ApplicationController
       end
       @expressions = @filter.expressions
     else
-      @filter = Filter.find(@params["id"]) if @params["id"]
+      @filter = Filter.find(params["id"]) if params["id"]
       @expressions = @filter.expressions  
     end
     @destfolders = get_to_folders
   end
   
   def filter_delete
-    Filter.delete(@params["id"])
+    Filter.delete(params["id"])
     # reindex other filters
     @user = Customer.find(logged_customer)
     findex = 0
@@ -262,7 +262,7 @@ class WebmailController < ApplicationController
   end
   
   def filter_up
-    filt = @user.filters.find(@params['id'])
+    filt = @user.filters.find(params['id'])
     ufilt = @user.filters.find_all("order_num = #{filt.order_num - 1}").first
     ufilt.order_num = ufilt.order_num + 1
     filt.order_num = filt.order_num - 1
@@ -273,7 +273,7 @@ class WebmailController < ApplicationController
   end
   
   def filter_down
-    filt = Filter.find(@params["id"])
+    filt = Filter.find(params["id"])
     dfilt = @user.filters[filt.order_num]
     dfilt.order_num = dfilt.order_num - 1
     filt.order_num = filt.order_num + 1
@@ -338,10 +338,10 @@ class WebmailController < ApplicationController
   
   def get_upass
     if CDF::CONFIG[:crypt_session_pass]
-      EzCrypto::Key.decrypt_with_password(CDF::CONFIG[:encryption_password], CDF::CONFIG[:encryption_salt], @session["wmp"])
+      EzCrypto::Key.decrypt_with_password(CDF::CONFIG[:encryption_password], CDF::CONFIG[:encryption_salt], session["wmp"])
     else
       # retrun it plain
-      @session["wmp"]
+      session["wmp"]
     end  
   end  
   
@@ -383,23 +383,23 @@ class WebmailController < ApplicationController
   
   def load_folders
     if have_to_load_folders?()
-      if @params["folder_name"]
-        @folder_name = @params["folder_name"]
+      if params["folder_name"]
+        @folder_name = params["folder_name"]
       else
-        @folder_name = @session["folder_name"] ? @session["folder_name"] : CDF::CONFIG[:mail_inbox]
+        @folder_name = session["folder_name"] ? session["folder_name"] : CDF::CONFIG[:mail_inbox]
       end
-      @session["folder_name"] = @folder_name
+      session["folder_name"] = @folder_name
       @folders = @mailbox.folders if @folders.nil?
     end  
   end
   
   def create_mail
     m = CDF::Mail.new(user.mail_temporary_path)
-    if @params["mail"]
-      ma = @params["mail"]
+    if params["mail"]
+      ma = params["mail"]
       m.body, m.content_type, m.from, m.to, m.cc, m.bcc, m.subject =  ma["body"], ma["content_type"], ma["from"], ma["to"], ma["cc"], ma["bcc"], ma["subject"]
-      if @params["att_files"]
-        att_files, att_tfiles, att_ctypes = @params["att_files"], @params["att_tfiles"], @params["att_ctypes"]
+      if params["att_files"]
+        att_files, att_tfiles, att_ctypes = params["att_files"], params["att_tfiles"], params["att_ctypes"]
         att_files.each {|i, value|
           att = CDF::Attachment.new(m)
           att.filename, att.temp_filename, att.content_type = value, att_tfiles[i], att_ctypes[i]
@@ -425,7 +425,7 @@ class WebmailController < ApplicationController
   
   def get_mail_prefs
     if not(@mailprefs)
-      if not(@mailprefs = MailPref.find_by_customer(logged_customer))
+      if not(@mailprefs = MailPref.find_by_customer_id(logged_customer))
         @mailprefs = MailPref.create("customer_id"=>logged_customer)
       end
     end  
@@ -477,18 +477,18 @@ class WebmailController < ApplicationController
   end
   
   def msg_id_param
-    @params["msg_id"]
+    params["msg_id"]
   end
   
   def messages_param
-    @params["messages"]
+    params["messages"]
   end
   
   def dst_folder
-    @params["cpdest"]
+    params["cpdest"]
   end
   
   def operation_param
-    @params["op"]
+    params["op"]
   end
 end

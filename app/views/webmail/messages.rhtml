@@ -31,7 +31,7 @@
 <div id="messages">
   <div id="msglist">
     <h2><%= @folder_name %></h2>
-    <%= start_form_tag({:controller=>'/webmail/webmail', :action=>'messages'})%>
+    <%= form_tag({:controller=>'/webmail/webmail', :action=>'messages'})%>
     <div class='notviscode'><input type="submit" name="op" value="<%=_('Search')%>" /></div>
     <input type="hidden" name="page" value="<%=@page%>"/>
     
@@ -57,7 +57,7 @@
              </select>
       </span>
     </div>
-    <%= render_partial "search" %>
+    <%= render :partial => "search" %>
     <%= page_navigation_webmail @pages if @pages.page_count > 1 %>
     <table width='98%'>
       <thead>
@@ -76,7 +76,7 @@
       </thead>
       <tbody>
         <% for message in @messages %>
-        <%=  render_partial 'webmail/webmail/message_row', message %>
+          <%=  render :partial  => 'message_row', :object => message %>
         <% end %>
       </tbody>
     </table>
