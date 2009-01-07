@@ -5,7 +5,7 @@ require 'mail2screen'
 require 'ezcrypto'
 
 class Webmail::WebmailController < ApplicationController
-  uses_component_template_root
+#   uses_component_template_root
   
   # Administrative functions
   before_filter :login_required
@@ -18,7 +18,7 @@ class Webmail::WebmailController < ApplicationController
   
   after_filter :close_imap_session
   
-  model :filter, :expression, :mail_pref, :customer
+#   model :filter, :expression, :mail_pref, :customer
   
   BOOL_ON = "on"
   

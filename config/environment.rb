@@ -20,7 +20,7 @@ Rails::Initializer.run do |config|
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake create_sessions_table')
-  config.action_controller.session_store = :active_record_store
+  #config.action_controller.session_store = :active_record_store
 
   # Enable page/fragment caching by setting a file-based store
   # (remember to create the caching directory and make it readable to the application)
@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   # config.active_record.schema_format = :ruby
 
   # See Rails::Configuration for more options
+  config.action_controller.session = { :session_key => "_mailr_session", :secret => "123456789012345678901234567890" }
 end
 
 # Add new inflection rules using the following format 

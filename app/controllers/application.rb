@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   before_filter :user_login_filter
   before_filter :add_scripts
   
-  model :customer
-  
   protected
     def secure_user?() true end
     def secure_cust?() false end
@@ -21,7 +19,7 @@ class ApplicationController < ActionController::Base
     
     def user_login_filter
       if (secure_user? or secure_cust? )and logged_user.nil?
-        @session["return_to"] = @request.request_uri
+        session["return_to"] = request.request_uri
         redirect_to :controller=>"/login", :action => "index"
         return false
       end
@@ -30,24 +28,24 @@ class ApplicationController < ActionController::Base
     alias login_required user_login_filter   
       
     def logged_user # returns customer id
-      @session['user']
+      session['user']
     end
 
     def logged_customer
-      @session['user']
+      session['user']
     end
     
     def localize
       # We will use instance vars for the locale so we can make use of them in
       # the templates.
       @charset  = 'utf-8'
-      @headers['Content-Type'] = "text/html; charset=#{@charset}"
+      headers['Content-Type'] = "text/html; charset=#{@charset}"
       # Here is a very simplified approach to extract the prefered language
       # from the request. If all fails, just use 'en_EN' as the default.
-      temp = if @request.env['HTTP_ACCEPT_LANGUAGE'].nil?
+      temp = if request.env['HTTP_ACCEPT_LANGUAGE'].nil?
                []
              else
-               @request.env['HTTP_ACCEPT_LANGUAGE'].split(',').first.split('-') rescue []
+               request.env['HTTP_ACCEPT_LANGUAGE'].split(',').first.split('-') rescue []
              end
       language = temp.slice(0)
       dialect  = temp.slice(1)

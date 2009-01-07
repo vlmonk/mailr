@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="/stylesheets/mailr.css" type="text/css" media="screen" />
   </head>
   <body>
-    <div id="login" <%= 'class="login_error"' if @flash['error'] %>>
+    <div id="login" <%= 'class="login_error"' if flash['error'] %>>
       <h1>Mailr</h1>
-      <% if @flash['error'] %>
-      <div id="SystemError"><%= @flash['error'] %></div>
-      <% elsif @flash['status'] %>
-      <div id="SystemStatus"><%= @flash['status'] %></div>
+      <% if flash['error'] %>
+      <div id="SystemError"><%= flash['error'] %></div>
+      <% elsif flash['status'] %>
+      <div id="SystemStatus"><%= flash['status'] %></div>
       <% end %>
       <form action="<%=url_for(:controller => 'login', :action => 'authenticate')%>" method="post">
 	<table class="form_layout">
