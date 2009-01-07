@@ -1,0 +1,48 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+      <li><span><%= _('Folders') %></span>
+        <ul id="secondary">
+            <li><%=link_refresh%></li>
+        </ul>
+      </li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<% content_for('sidebar') { %>  
+<div id="folders">
+  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
+  <hr/>
+  <ul> <% for folder in @folders %>
+    <li><%=folder_link(folder)%></li> <% end %> 
+  </ul>
+</div>
+<% } %>
+<div id="messages">
+
+<div id="msgshow">
+  <div id="topmenu">
+    <ul class="actionmenu">
+      <li>
+      <%= link_to(_("&#171; Back to list"), :controller=>"/webmail/webmail", :action=>"messages") %>
+      </li>
+      <li><%=link_reply_to_sender(@msg_id)%></li>
+      <li><%=link_forward_message(@msg_id)%></li>
+      <li><%=link_flag_for_deletion(@msg_id)%></li>
+      <li><%=link_view_source(@msg_id)%></li>
+    </ul>
+  </div>
+  
+  <%= mail2html(@mail, @msg_id) %>
+</div>
+
+</div>
+
+</div></div>
+

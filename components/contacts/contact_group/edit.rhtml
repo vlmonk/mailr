@@ -1,0 +1,24 @@
+<h1><%=_('Edit/Create Contact Group')%></h1>
+  <%=
+    form_tag(
+      link_save,
+      'method' => 'post',
+      'class' => 'two_columns'
+    )
+  %>
+<%= form_input(:hidden_field, 'contactgroup', 'id') %>
+<%= form_input(:hidden_field, 'contactgroup', 'customer_id') %>
+
+<table>
+	<%= form_input(:text_field, 'contactgroup', 'name', _('Name'), 'class'=>'two_columns') %>
+</table>
+<table>
+  <tr>
+  	<td colspan=2 class="buttonBar">
+  		<input type="submit" name="Save" value="<%=_('Save')%>"/>
+  		<input type="button" value="<%=_('Back to groups')%>" onclick="window.location='<%=link_list%>'"/>
+  	</td>
+  </tr>	
+</table>  
+  
+  <%= end_form_tag %>

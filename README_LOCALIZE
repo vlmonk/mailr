@@ -1,0 +1,27 @@
+Here we will describe how to make translations for Mailr
+
+1. Supose we will translate Mailr in French
+2. In locale directory create subirectory fr_FR
+3. In newly created directory fr_FR create subdirectory LC_MESSAGES
+
+result:
+  |
+  |_ locale
+     |
+     |- bg_BG
+     |
+     |- fr_FR
+        |
+	|- LC_MESSAGES
+4. Run script for extracting strings from rails application to po files
+	
+script/localize
+
+5. Run PoEdit (http://poedit.sourceforge.net/)
+
+6. Make translations to your newlly created file (locale/fr_FR/LC_MESSAGES/messages.po)
+
+7. Compile po file to mo file using PoEdit
+
+
+NOTE: Switching of locales is made in ApplicationController localize filter - by default mailr looks for HTTP_ACCEPT_LANGUAGE of remote browser and switches translation

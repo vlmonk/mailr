@@ -1,0 +1,19 @@
+		<tr>
+			<td><%=h @user.filters[filter_counter].name%></th>
+			<td>
+				<% if filter_counter > 0 %>
+				<%=link_filter_up(@user.filters[filter_counter].id)%>
+				<% else %>
+				&nbsp;
+				<% end %>
+			</td>
+			<td>
+				<% if filter_counter < @user.filters.size - 1 %>
+				<%=link_filter_down(@user.filters[filter_counter].id)%>
+				<% else %>
+				&nbsp;
+				<% end %>
+			</td>
+			<td><%=link_filter_edit(@user.filters[filter_counter].id)%></td>
+			<td><%=link_filter_delete(@user.filters[filter_counter].id)%></td>
+		</tr>

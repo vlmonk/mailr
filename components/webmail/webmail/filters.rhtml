@@ -1,0 +1,39 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><span><%= _('Filters') %></span>
+      <ul id="secondary">
+        <li><%=link_filter_add%></li>
+      </ul> 
+    </li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<div id="filters">
+  <form action="/webmail/webmail/filters" method="post">
+<% if @user.filters and @user.filters.size > 0 %>
+  <table class="list">
+    <tr>
+      <th><%=_('Filter name')%></th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  <%= render_partial_collection "filter", @user.filters %>
+  </table>
+<% end %> 
+  </form>
+  <% if @flash['error'] %>
+  <div id="SystemError"><%= @flash['error'] %></div>
+  <% elsif @flash['status'] %>
+  <div id="SystemStatus"><%= @flash['status'] %></div>
+  <% end %>
+</div>  
+</div></div>

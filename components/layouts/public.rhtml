@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @htmllang %>" lang="<%= @htmllang %>">
+<head>
+  <title><%=_('Mailr')%></title>
+  <meta http-equiv="content-type" content="text/html; charset=<%= @charset %>" />
+  <link rel="stylesheet" href="/stylesheets/admin.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="/stylesheets/tabs.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="/stylesheets/mailr.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/javascripts/global.js"></script>
+  <script type="text/javascript" src="/javascripts/prototype.js"></script>
+  <%=(@content_for_scripts ? @content_for_scripts : @additional_scripts )%>
+</head>
+<body id="bodyID" onload="<%=@onload_function%>">
+  <div id="wholepage">
+  	<div id="container">
+  		  	<div id="logout"><%= link_to _('[Logout]'), :controller=>'/login', :action=>'logout' %></div>
+      <div id="sidebar_outer">
+	<div id="sidebar"><%= @content_for_sidebar %></div>
+      </div>
+      <div id="content"><%= @content_for_layout %></div>
+      <br class="clear"/>
+    </div>
+  </div>
+</body>
+</html>

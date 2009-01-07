@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+# we need fileutils for easy file access
+require 'fileutils'
+require 'rubygems'
+include FileUtils
+# we will need the modified rgettext.rb that can read erb templates
+require File.dirname(__FILE__) + '/rgettext'
+
+
+# RAILS_ROOT is just one up
+RAILS_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
+# $DEBUG = true
+# goto RAILS_ROOT so we can address all files relatively from there
+Dir.chdir(RAILS_ROOT)
+
+# the potfile will hold the temporary data before it is merged; note the
+# filename .messages.pot (if you don't prepend a dot to the filename Dir.glob
+# will get confused later on)
+potfile = "#{RAILS_ROOT}/locale/.messages.pot"
+
+# if the potfile exists from the previous run, delete it
+rm_f potfile
+
+# directories and extensions to harvest
+dirpattern = '{app,components,config,custom,lib}'
+extpattern = 'r{b,html,xml}'
+files = Dir.glob("#{dirpattern}/**/*.#{extpattern}")
+
+# run the harvester on the collected filenames and output to potfile
+RGettext.new.start files, potfile
+
+# now iterate through all locale dirs and update/merge
+Dir.glob('locale/*').each do |dir|
+  # check if every dir has a pofile to begin with, else msmerge will fail
+  # if not, use the potfile and don't merge
+  pofile = "#{RAILS_ROOT}/#{dir}/LC_MESSAGES/messages.po"
+  if File.exists?(pofile) 
+    print "Updating pofile #{pofile} "
+    system "msgmerge --force-po --no-location --update #{pofile} #{potfile}"
+  else
+    print "The pofile '#{pofile}' does not exist. I will create it for you "
+    path_to_pofile = File.dirname(pofile)
+    mkdir path_to_pofile unless File.exists?(path_to_pofile)
+    cp potfile, pofile
+    puts ' .... done.'
+  end
+end

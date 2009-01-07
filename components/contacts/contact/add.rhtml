@@ -1,0 +1,79 @@
+<h1><%=_('Edit/Create contact')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><span><%= _('Contacts') %></span>
+      <ul id="secondary">
+        <li><%=link_contact_list%></li>
+	<% if ret = @session["return_to"] %>
+	<li><%=link_to(_('Back to message'), ret) %></li>
+	<% end %>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div id="tab_main">
+  <div id="tab_content">
+
+
+    <%=
+    form_tag(
+      link_contact_save,
+      'method' => 'post',
+      'class' => 'two_columns'
+    )
+    %>
+    <%= form_input(:hidden_field, 'contact', 'id') %>
+    <%= form_input(:hidden_field, 'contact', 'customer_id') %>
+  
+    <table>
+      <%= form_input(:text_field, 'contact', 'fname', _('First name'), 'class'=>'two_columns') %>
+      <%= form_input(:text_field, 'contact', 'lname', _('Last name'), 'class'=>'two_columns') %>
+      <%= form_input((@contact.new_record? ? :text_field : :read_only_field), 'contact', 'email', _('E-mail'), 'class'=>'two_columns')%>
+    </table>
+  
+    <% for group in @contactgroups %>
+	<input id="groups[<%=group.id%>]" type="hidden" name="groups[<%=group.id%>]" value="<%=@groups[group.id]%>">
+	<% end %>  
+	<% if not(@contactgroups.empty?) %>
+	<%=_('Contact belong to these groups')%>:
+	<table class="list">
+	  <tr>
+	    <% 
+	   end
+	   col = 1
+	   for group in @contactgroups %>
+	    <th>
+	      <input id="groups[<%=group.id%>]" type="checkbox" name="groups[<%=group.id%>]" value="<%=@groups[group.id]%>" onclick="toggleCheckbox(this)"
+		     <%=@groups[group.id] == 1 ? " checked " : " " %> >
+	      &nbsp;<%=group.name %>
+	    </th>
+	    <% 	if col%2 == 0 %>
+	  </tr>
+	  <tr>
+	    <%	end
+			col = col + 1 %>
+	    <% end %>
+	    <% if col%2 == 0 and not(@contactgroups.empty?) %>
+			<th>&nbsp;</th>
+	                <% end %>
+	                <% if not(@contactgroups.empty?) %>
+	  </tr>
+	</table>  
+	<% end %>
+	
+	<table class="edit">  
+	  <tr>
+	    <td colspan=2 class="buttonBar">
+	      <input type="submit" name="paction" value="<%=_('Save')%>"/>
+	      <input type="submit" name="paction" value="<%=_('Save and add another')%>"/>
+	    </td>
+	  </tr>	
+	</table>	
+  <%= end_form_tag %>
+  </div>
+</div>

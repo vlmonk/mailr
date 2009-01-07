@@ -1,0 +1,466 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2005-04-07 18:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/controllers/webmail_controller.rb:57 /tmp/erb-gettext18743.0:30
+msgid "Add new folder"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:59 app/helpers/webmail_helper.rb:74 app/helpers/webmail_helper.rb:74
+msgid "(Delete)"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:61
+msgid "(Subscribe)"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:62
+msgid "(Select)"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:79 /tmp/erb-gettext18743.0:23
+msgid "copy"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:83 /tmp/erb-gettext18743.0:24
+msgid "move"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:87 /tmp/erb-gettext18743.0:89 /tmp/erb-gettext18743.0:16
+#: /tmp/erb-gettext18743.0:22
+msgid "delete"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:91 /tmp/erb-gettext18743.0:25
+msgid "mark read"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:98 /tmp/erb-gettext18743.0:26
+msgid "mark unread"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:110 /tmp/erb-gettext18743.0:17 /tmp/erb-gettext18743.0:8
+msgid "Search"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:115 /tmp/erb-gettext18743.0:18 /tmp/erb-gettext18743.0:9
+msgid "Show all"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:143
+msgid "Password changed successfully"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:146
+msgid "Password not changed - please enter correct password."
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:181 /tmp/erb-gettext18743.0:18
+msgid "Send"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:190 app/controllers/webmail_controller.rb:245
+#: /tmp/erb-gettext18743.0:23 /tmp/erb-gettext18743.0:46 /tmp/erb-gettext18743.0:27
+msgid "Add"
+msgstr ""
+
+#: app/controllers/webmail_controller.rb:228 app/controllers/webmail_controller.rb:247
+#: /tmp/erb-gettext18743.0:51 /tmp/erb-gettext18743.0:73 /tmp/erb-gettext18743.0:18
+#: /tmp/erb-gettext18743.0:33 /tmp/erb-gettext18743.0:35
+msgid "Save"
+msgstr ""
+
+#: app/controllers/login_controller.rb:26
+msgid "Wrong email or password specified."
+msgstr ""
+
+#: app/controllers/login_controller.rb:33
+msgid "User successfully logged out"
+msgstr ""
+
+#: app/controllers/contact_controller.rb:135
+msgid "You havent selected file or the file is empty"
+msgstr ""
+
+#: app/controllers/contact_controller.rb:161 app/controllers/contact_controller.rb:189
+msgid "Contact %"
+msgstr ""
+
+#: app/controllers/contact_controller.rb:161 app/controllers/contact_controller.rb:189
+msgid "The e-mail duplicates the e-mail of another record!"
+msgstr ""
+
+#: app/models/contact.rb:47
+msgid "Please enter your first name (2 to 20 characters)."
+msgstr ""
+
+#: app/models/contact.rb:48
+msgid "Please enter your surname (2 to 20 characters)."
+msgstr ""
+
+#: app/models/contact.rb:53
+msgid "Contacts email cannot be changed."
+msgstr ""
+
+#: app/models/contact.rb:59
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: app/models/contact.rb:63
+msgid "An account for your email address already exists."
+msgstr ""
+
+#: app/models/contact_group.rb:15
+msgid "Please enter group name (1 to 50 characters)"
+msgstr ""
+
+#: app/models/contact_group.rb:21
+msgid "You already have contact group with this name"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:6
+msgid "Folders"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:10
+msgid "Compose"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:14
+msgid "Refresh"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:18
+msgid "Message list"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:22
+msgid "Reply"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:26
+msgid "Forward"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:30 app/helpers/webmail_helper.rb:123
+msgid "Delete"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:34
+msgid "View source"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:38
+msgid "Manage folders"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:42 /tmp/erb-gettext18743.0:1
+msgid "Change password"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:46
+msgid "Preferences"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:50
+msgid "Mail Filters"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:54 /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:19
+msgid "Contacts"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:58
+msgid "Logout"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:63
+msgid "(Empty)"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:111
+msgid "Up"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:115
+msgid "Down"
+msgstr ""
+
+#: app/helpers/webmail_helper.rb:119
+msgid "Edit"
+msgstr ""
+
+#: app/helpers/application_helper.rb:156
+msgid "First"
+msgstr ""
+
+#: app/helpers/application_helper.rb:157
+msgid "Prev"
+msgstr ""
+
+#: app/helpers/application_helper.rb:158
+msgid "Next"
+msgstr ""
+
+#: app/helpers/application_helper.rb:159
+msgid "Last"
+msgstr ""
+
+#: app/views/contact/add.rhtml:1
+msgid "Edit/Create contact"
+msgstr ""
+
+#: app/views/contact/add.rhtml:13 /tmp/erb-gettext18743.0:17 /tmp/erb-gettext18743.0:17
+msgid "First name"
+msgstr ""
+
+#: app/views/contact/add.rhtml:14 /tmp/erb-gettext18743.0:18 /tmp/erb-gettext18743.0:18
+msgid "Last name"
+msgstr ""
+
+#: app/views/contact/add.rhtml:15 /tmp/erb-gettext18743.0:19 /tmp/erb-gettext18743.0:28
+#: /tmp/erb-gettext18743.0:59 /tmp/erb-gettext18743.0:80 /tmp/erb-gettext18743.0:14
+msgid "E-mail"
+msgstr ""
+
+#: app/views/contact/add.rhtml:22
+msgid "Contact belong to these groups"
+msgstr ""
+
+#: app/views/contact/add.rhtml:52
+msgid "Save and add another"
+msgstr ""
+
+#: app/views/contact/add.rhtml:53 /tmp/erb-gettext18743.0:38 /tmp/erb-gettext18743.0:21
+msgid "Back to contacts"
+msgstr ""
+
+#: app/views/contact/add.rhtml:55 /tmp/erb-gettext18743.0:99
+msgid "Back to message"
+msgstr ""
+
+#: app/views/contact/import_preview.rhtml:1
+msgid "Contacts You Are About To Import"
+msgstr ""
+
+#: app/views/contact/import_preview.rhtml:4 /tmp/erb-gettext18743.0:3
+msgid "Errors"
+msgstr ""
+
+#: app/views/contact/import_preview.rhtml:36 /tmp/erb-gettext18743.0:20
+msgid "Import"
+msgstr ""
+
+#: app/views/contact/import_preview.rhtml:37
+msgid "Choose another file"
+msgstr ""
+
+#: app/views/contact/import_preview.rhtml:39 app/views/contact/list.rhtml:96 /tmp/erb-gettext18743.0:22
+#: /tmp/erb-gettext18743.0:22
+msgid "Back to folders"
+msgstr ""
+
+#: app/views/contact/list.rhtml:26
+msgid "To&nbsp;CC&nbsp;BCC"
+msgstr ""
+
+#: app/views/contact/list.rhtml:27 app/views/contact/list.rhtml:58 app/views/contact/list.rhtml:79
+#: /tmp/erb-gettext18743.0:7 /tmp/erb-gettext18743.0:13
+msgid "Name"
+msgstr ""
+
+#: app/views/contact/list.rhtml:39 app/views/contact/list.rhtml:97
+msgid "Groups"
+msgstr ""
+
+#: app/views/contact/list.rhtml:51
+msgid "choose"
+msgstr ""
+
+#: app/views/contact/list.rhtml:52
+msgid "cancel"
+msgstr ""
+
+#: app/views/contact/list.rhtml:74 /tmp/erb-gettext18743.0:19
+msgid "Back to groups"
+msgstr ""
+
+#: app/views/contact/list.rhtml:89
+msgid "DELETE CONTACT?\r\name - %s\r\nE-mail - %s"
+msgstr ""
+
+#: app/views/contact/list.rhtml:94
+msgid "Add One Contact"
+msgstr ""
+
+#: app/views/contact/list.rhtml:95
+msgid "Add Multiple Contacts"
+msgstr ""
+
+#: app/views/contact/add_multiple.rhtml:1
+msgid "Add multiple contacts"
+msgstr ""
+
+#: app/views/contact/add_multiple.rhtml:11
+msgid "Comma-separated (CSV) file"
+msgstr ""
+
+#: app/views/contact/add_multiple.rhtml:12
+msgid "Tab-delimited text file"
+msgstr ""
+
+#: app/views/contact/add_multiple.rhtml:15
+msgid "Select file"
+msgstr ""
+
+#: app/views/login/index.rhtml:20 app/views/login/index.rhtml:20
+msgid "Email"
+msgstr ""
+
+#: app/views/login/index.rhtml:24 app/views/login/index.rhtml:24 /tmp/erb-gettext18743.0:16
+msgid "Password"
+msgstr ""
+
+#: app/views/login/index.rhtml:29
+msgid "Log In"
+msgstr ""
+
+#: app/views/layouts/public.rhtml:5 /tmp/erb-gettext18743.0:5
+msgid "Mailr"
+msgstr ""
+
+#: app/views/contact_group/list.rhtml:1
+msgid "Contact Groups"
+msgstr ""
+
+#: app/views/contact_group/list.rhtml:14
+msgid "members"
+msgstr ""
+
+#: app/views/contact_group/list.rhtml:15
+msgid "edit"
+msgstr ""
+
+#: app/views/contact_group/list.rhtml:16
+msgid "DELETE CONTACT GROUP %s?"
+msgstr ""
+
+#: app/views/contact_group/list.rhtml:21
+msgid "Add Contact Group"
+msgstr ""
+
+#: app/views/contact_group/edit.rhtml:1
+msgid "Edit/Create Contact Group"
+msgstr ""
+
+#: app/views/webmail/filter.rhtml:1 /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:1
+#: /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:1
+#: /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:1 /tmp/erb-gettext18743.0:1
+msgid "Mailbox of (%s)"
+msgstr ""
+
+#: app/views/webmail/filter.rhtml:18 /tmp/erb-gettext18743.0:18
+msgid "Filter name"
+msgstr ""
+
+#: app/views/webmail/filter.rhtml:21
+msgid "Messages matching"
+msgstr ""
+
+#: app/views/webmail/filter.rhtml:25
+msgid "Will be placed in"
+msgstr ""
+
+#: app/views/webmail/filter.rhtml:34 /tmp/erb-gettext18743.0:36
+msgid "Cancel"
+msgstr ""
+
+#: app/views/webmail/manage_folders.rhtml:15
+msgid "Folder list"
+msgstr ""
+
+#: app/views/webmail/manage_folders.rhtml:30
+msgid "Folder name"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:20
+msgid "Operations on marked messages"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:29
+msgid "Destination for move and copy operations"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:44 /tmp/erb-gettext18743.0:16 /tmp/erb-gettext18743.0:21
+msgid "To"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:46
+msgid "From"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:48 /tmp/erb-gettext18743.0:23 /tmp/erb-gettext18743.0:24
+msgid "Subject"
+msgstr ""
+
+#: app/views/webmail/messages.rhtml:49
+msgid "Date"
+msgstr ""
+
+#: app/views/webmail/change_password.rhtml:18
+msgid "New password"
+msgstr ""
+
+#: app/views/webmail/change_password.rhtml:20
+msgid "Change"
+msgstr ""
+
+#: app/views/webmail/folders.rhtml:16
+msgid "Mailbox folders"
+msgstr ""
+
+#: app/views/webmail/prefs.rhtml:20
+msgid "Send type message"
+msgstr ""
+
+#: app/views/webmail/prefs.rhtml:27
+msgid "Messages per page"
+msgstr ""
+
+#: app/views/webmail/mailsent.rhtml:18 /tmp/erb-gettext18743.0:22
+msgid "CC"
+msgstr ""
+
+#: app/views/webmail/mailsent.rhtml:21 /tmp/erb-gettext18743.0:23
+msgid "BCC"
+msgstr ""
+
+#: app/views/webmail/_search.rhtml:2
+msgid "Search in message field"
+msgstr ""
+
+#: app/views/webmail/_search.rhtml:6
+msgid "for"
+msgstr ""
+
+#: app/views/webmail/compose.rhtml:45
+msgid "Attachment"
+msgstr ""
+
+#: app/views/webmail/_expr.rhtml:15
+msgid "case sensitive"
+msgstr ""

@@ -1,0 +1,14 @@
+<tr class="<%= message_row.unread ? 'notseen': 'seen' %>">
+  <td class="mark"><input type="checkbox" name="messages[<%= message_row.uid %>]"/></td>
+	<% if @folder_name == CDF::CONFIG[:mail_sent] %>
+  <td class="to"><%= short_address(message_row.to_addr) %></td>
+<% else %>
+  <td class="from"><%= short_address(message_row.from_addr) %></td>
+<% end  %>
+  <td class="subject"><div class='cutField'>
+    <%= link_to(parse_subject(message_row.subject) << "&nbsp;" , :controller=>'webmail', :action=>'message', :msg_id=>message_row.uid)%>
+  </td>
+  <td class="date"><%= message_date(message_row.date) %></td>
+  <td class="size"><%= message_size(message_row.size) %></td>
+  <td class="attachind"><%= message_row.content_type == 'multipart' ? image_tag('attachment.png') : '&nbsp;' %></td>
+</tr>

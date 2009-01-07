@@ -1,0 +1,5 @@
+<ul class="contacts">
+<% for contact in @contacts do -%>
+  <li class="contact"><%=h contact.fname %> <%= h contact.lname %> <div class='email'><div class="notviscode">&amp;lt;</div><%= h contact.email %><div class="notviscode">&amp;gt;</div></div></li>
+<% end -%>
+</ul>

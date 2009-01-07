@@ -1,0 +1,11 @@
+<script language="javascript">
+<% for to in @tos %>
+	respondTo("<%=to.full_address%>", "<%=to.id%>");
+<% end %>
+<% for cc in @ccs %>
+	respondCC("<%=cc.full_address%>");
+<% end %>
+<% for bcc in @bccs %>
+	respondBCC("<%=bcc.full_address%>");
+<% end %>
+</script>

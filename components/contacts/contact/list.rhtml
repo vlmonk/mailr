@@ -1,0 +1,114 @@
+<h1><%= _('Contacts')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><span><%= _('Contacts') %></span>
+      <ul id="secondary">
+        <li><%=link_contact_add_one%></li>
+        <li><%=link_contact_add_multiple%></li>
+	<% if ret = @session["return_to"] %>
+	<li><%=link_to(_('Back to message'), ret) %></li>
+	<% end %>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div id="tab_main">
+  <div id="tab_content">
+    
+    <% if @flash["alert"] %><ul><li><%= @flash["alert"] %></li></ul><% end %>
+    <form action="<%=link_contact_choose%>?mode=<%=@mode%>" method="post">
+      <input type="hidden" name="mode" value="<%=@mode%>"/>
+      <% if @group_id and not @group_id.nil? %>
+      <input type="hidden" name="group_id" value="<%=@group_id%>"/>
+      <% end %>
+      <table class="list">
+        <tr>
+          <td colspan="4" id="alphaListHeader">
+        <% 
+	letters = CDF::CONFIG[:contact_letters]
+        for letterIndex in 0...letters.size
+        letter = letters[letterIndex] %>
+	<%= link_to(letter, :controller=>"contact", :action=>"listLetter", :id=>letterIndex, :params=>{"mode"=>@mode, "group_id"=>(@group_id ? @group_id : nil)}) %>
+        <% end %>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to(_('Show all'), :controller=>"contact", :action=>"list", :id=>(@group_id ? @group_id : nil), :params=>{"mode"=>@mode})%>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><%= @contact_pages.basic_html(self, 2, false, {"mode"=>@mode}) %></td>
+        </tr>
+        <% if @mode == "choose" %>	
+        <tr>
+          <th><%= _('To&nbsp;CC&nbsp;BCC')%></th>
+          <th><%= _('Name')%></th>
+          <th><%= _('E-mail')%></th>
+        </tr>	
+<%  for contact in @contacts %>
+        <tr class="<%= alternator %>">
+          <td><input type="checkbox" name="contacts_to[<%=contact.id%>]" value="1"/>
+            <input type="checkbox" name="contacts_cc[<%=contact.id%>]" value="1"/>
+            <input type="checkbox" name="contacts_bcc[<%=contact.id%>]" value="1"/></td>
+          <td><%=contact.full_name%></td>
+          <td><%=contact.email%></td>
+        </tr>	
+        <% end %>
+        <tr class="rowsep"><td colspan="3"><%=_('Groups')%>:</td></tr>
+<%  for group in @contactgroups %>
+        <tr class="<%= alternator %>">
+          <td><input type="checkbox" name="groups_to[<%=group.id%>]" value="1"/>
+            <input type="checkbox" name="groups_cc[<%=group.id%>]" value="1"/>
+            <input type="checkbox" name="groups_bcc[<%=group.id%>]" value="1"/></td>
+          <td><%=group.name%></td>
+          <td>&nbsp;</td>
+        </tr>	
+        <% end %>
+        <tr>
+          <td colspan=3 class="buttonBar">
+            <input type="submit" value="<%= _('choose')%>">
+            <input type="button" value="<%= _('cancel')%>" onclick="javascript:window.close();">
+          </td>
+        </tr>
+<% elsif @mode == "groups"%>
+        <tr>
+          <th></th>
+          <th width="200px"><%= _('Name')%></th>
+          <th><%= _('E-mail')%></th>
+        </tr>
+<%  for contact in @contacts %>
+<input type="hidden" id="contacts_for_group[<%=contact.id%>]" name="contacts_for_group[<%=contact.id%>]" value="<%=@contacts_for_group[contact.id]%>" >
+        <tr class="<%= alternator %>">
+          <td><input type="checkbox" id="contacts_for_group[<%=contact.id%>]" name="contacts_for_group[<%=contact.id%>]" 
+	     value="<%=@contacts_for_group[contact.id]%>" onclick="toggleCheckbox(this)"
+	     <%=@contacts_for_group[contact.id] == 1 ? " checked " : " " %> ></td>
+          <td><%=contact.full_name%></td>
+          <td><%=contact.email%></td>
+        </tr>	
+        <% end %>
+        <tr>
+          <td colspan=2 class="buttonBar">
+            <input type="submit" value="<%= _('Save')%>">
+            <input type="button" value="<%= _('Back to groups')%>" onclick="window.location='<%=link_contact_group_list%>'">
+          </td>
+        </tr>
+        <% else %>	
+        <tr>
+          <th width="200px"><%= _('Name')%></th>
+          <th><%= _('E-mail')%></th>
+          <th>&nbsp;</th>
+        </tr>	
+<%  	for contact in @contacts %>
+        <tr class="<%= alternator %>">
+          <td><%= link_to(contact.full_name, :controller=>"/contacts/contact", :action => "edit", :id => contact.id ) %></td>
+          <td><%= link_to( contact.email, :controller => "/webmail", :action => "compose", :params => { "mail[to]" => contact.email } ) %></td>
+          <td><%= link_to(_('delete'), {:controller=>'/contacts/contact', :action=>'delete', :id=>contact.id}, {:confirm=>sprintf(_('DELETE CONTACT?\r\n\Name - %s\r\nE-mail - %s'), contact.show_name, contact.email)})%></td>
+        </tr>	
+        <% end %>
+        <% end %>
+      </table>	
+    </form>
+  </div>
+</div>

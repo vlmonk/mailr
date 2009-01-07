@@ -1,0 +1,67 @@
+<h1><%=_('Mailbox')%></h1>
+<form name="composeMail" id='composeMail' action="/webmail/webmail/compose"  enctype="multipart/form-data" method="post">
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><span><%= _('Compose') %></span>
+      <ul id="secondary">
+        <li><%=link_compose_new%></li>
+        <li><a href='#' onclick="getFormField('composeMail').submit();"><%=_('Send')%></a></li>
+        <li><a href="#" onclick="chooseContacts();"><%= _('Choose addresses from contacts') %></a></li>
+      </ul>
+    </li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<div id="msg-compose">
+<input type="hidden" id="mail_toc" name="mail[toc]" value="<%=@mail.toc%>"/>
+<input type="hidden" id="mail_op" name="op" value="<%=_('Send')%>"/>
+<div id="msghdr">
+  <table>
+    <tr><td><label for=''><%=_('To')%></label></td><td><%= text_field_with_auto_complete(:mail, :to, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%=_('CC')%></label></td><td><%= text_field_with_auto_complete(:mail, :cc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%=_('BCC')%></label></td><td><%= text_field_with_auto_complete(:mail, :bcc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%=_('Subject')%></label></td><td><%= text_field('mail', 'subject', {"size"=>65}) %></td></tr>
+  </table>
+  <%= hidden_field('mail', 'from') %>
+  <%= hidden_field('mail', 'content_type') %>
+</div>
+
+<div class="msgpart ct-text-plain">
+  <%= text_area "mail", "body", "rows"=>20, "cols"=>75 %>
+</div>
+
+<div class="msgpart">
+  <% if @mail.attachments and @mail.attachments.size > 0%>
+    <table class="attachments">
+      <%  i = 0
+        @mail.attachments.each { |att|  %>
+      <tr><td><%=attachment(att, i)%></td></tr>
+      <%    i = i + 1
+        }%>
+    </table>
+  <% end %>
+  <hr/>
+  <label for="attachment"><%=_('Attachment')%>:</label><%=%><input type="file" name="attachment"/> 
+  <input type="button" name="mail_add_attachement" value="<%=_('Add')%>"
+         onclick="getFormField('mail_op').value='<%=_('Add')%>';getFormField('composeMail').submit();">
+</div>
+</div>
+</div></div>
+</form>
+
+<% content_for("scripts") { %>
+<%= @additional_scripts %>
+<% if ['text/html', 'multipart'].include?(@mail.content_type) %>
+<%= include_tinymce %>
+<% end %>
+<%= javascript_include_tag "controls" %>
+<%= javascript_include_tag "dragdrop" %>
+<%= javascript_include_tag "effects" %>
+<% %>
+<% } %>

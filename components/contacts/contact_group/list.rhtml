@@ -1,0 +1,26 @@
+<h1><%=_('Contact Groups')%></h1>
+
+<form action="/contact_group/add" method="post">
+<%= hidden_field "contactgroup", "user_id" %>
+<table class="list">
+	<tr>
+		<th><%=_('Name')%></th>
+		<th colspan=3>&nbsp;</th>
+	</tr>
+<%  
+	for contactgroup in @contactgroups %>
+	<tr class="even">
+		<td><%= contactgroup.name %></td>
+		<td><%= link_to(_('members'), :controller=>'contact', :action=>'list', :id=>contactgroup.id, :params=>{"mode"=>"groups"}) %></td>
+		<td><%= link_to(_('edit'), :controller=>'/contacts/contact_group', :action=>'edit', :id=>contactgroup.id) %></td>
+  		<td><%= link_to(_('delete'), {:controller=>'/contacts/contact_group', :action=>'delete', :id=>contactgroup.id}, {:confirm=>sprintf(_('DELETE CONTACT GROUP \'%s\'?'), contactgroup.name)})%></td>
+	</tr>
+<% end %>
+	<tr>
+		<td colspan=2 class="buttonBar">
+			<input type="submit" value="<%=_('Add Contact Group')%>"/>
+			<input type="button" value="<%=_('Back to folders')%>" onclick="window.location='/webmail/folders'">
+		</td>
+	</tr>
+</table>
+</form>	

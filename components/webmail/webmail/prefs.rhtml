@@ -1,0 +1,52 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><%=link_send_mail%></li>
+    <li><span><%= _('Preferences') %></span></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+  <div id="tab_content">
+    <div id="prefs">
+      <form action="/webmail/webmail/prefs" method="post">
+        <%= hidden_field "mailpref", "id" %>
+        <%= hidden_field "mailpref", "customer_id" %>
+        <table class="edit">
+	  <%= form_input(:text_field, 'customer', 'fname', _('First name'), 'class'=>'two_columns') %>
+	  <%= form_input(:text_field, 'customer', 'lname', _('Last name'), 'class'=>'two_columns') %>
+          <tr class="two_rows">
+            <td><label><%=_('Send type message')%></label></td>
+            <td><select name="mailpref[mail_type]">
+                <%= options_for_select(CDF::CONFIG[:mail_send_types], @mailpref.mail_type)%>
+            </select></td>
+          </tr>
+     
+          <tr class="two_rows">
+            <td><label><%=_('Messages per page')%></label></td>
+            <td><select name="mailpref[wm_rows]">
+                <%= options_for_select(CDF::CONFIG[:mail_message_rows], @mailpref.wm_rows)%>
+            </select></td>
+          </tr>
+    
+          <tr class="two_rows">
+            <td><label for="mailpref_check_external_mail"><%=_('Check external mail?')%></label></td>
+            <td>
+              <%=check_box('mailpref', 'check_external_mail')%> 
+              <%=_('Note that by selecting this option webmail system will try to log you using your original email on a local server.')%>
+            </td>
+          </tr>
+
+          <tr class="two_rows">
+            <td colspan='2' class="buttonBar">
+              <input type="submit" name="op" value="<%=_('Save')%>"/>
+              <input type="button" value="<%=_('Cancel')%>" onclick="window.location='/webmail/webmail/folders'"/>
+            </td>
+          </tr> 
+        </table> 
+      </form>
+    </div>     
+  </div>
+</div>

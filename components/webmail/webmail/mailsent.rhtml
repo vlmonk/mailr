@@ -1,0 +1,31 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><span><%= _('Compose') %></span>
+      <ul id="secondary">
+        <li><%=link_compose_new%></li>
+      </ul>
+    </li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<div class="msghdr">
+<dl>
+  <dt><%=_('To')%></dt><dd><%= CGI.escapeHTML(@mail.to) %></dd>
+  <% if @mail.cc %>
+  <dt><%=_('CC')%></dt><dd><%= CGI.escapeHTML(@mail.cc) %></dd>
+  <% end 
+     if @mail.bcc %>
+  <dt><%=_('BCC')%></dt><dd><%= CGI.escapeHTML(@mail.bcc) %></dd>
+  <% end %>
+  <dt><%=_('Subject')%></dt><dd><%= CGI.escapeHTML(@mail.subject) %></dd>
+</dl>
+</div>
+</div>
+</div>

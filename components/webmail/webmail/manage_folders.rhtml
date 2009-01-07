@@ -1,0 +1,48 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><span><%= _('Folders') %></span>
+      <ul id="secondary">
+          <li><%=link_back_to_messages%></li>
+      </ul>
+    </li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<% content_for('sidebar') { %>  
+<div id="folders">
+  <h4><%=_('Add folder')%></h4>
+  <hr/>
+  <form action="/webmail/webmail/manage_folders" method="post">
+    <ul>
+      <li><label for='folder_name'><%=_('Name')%>:</label></li>
+      <li><input type="text" name="folder_name" value="" size="18" id='folder_name'/></li>
+      <li><input type="submit" name="op" value="<%=_('Add folder')%>"/></li>
+    </ul>
+  </form>
+</div>    
+<% } %>
+
+<div id="messages">
+  <div id='msg-fl-list'>
+  <table>
+    <thead><tr><th><%=_('Folder')%></th><th><%= _('Total messages') %></th><th><%= _('Unseen') %></th></tr></thead>
+    <tbody>
+  <% for folder in @folders %>
+    <tr>
+      <td><%=folder_manage_link(folder)%></td>
+      <td><%= folder.total %></td>
+      <td><%= folder.unseen > 0 ? "<b>#{folder.unseen}</b>" : "#{folder.unseen}" %></td></tr>
+  <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+</div>  

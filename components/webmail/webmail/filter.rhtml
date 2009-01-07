@@ -1,0 +1,41 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+    <li><%=link_folders%></li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><span><%= _('Filters') %></span></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<div id="filters">
+  <form action="/webmail/webmail/filter" method="post">
+  <%=hidden_field 'filter', 'id' %>
+  <table class="list" width='100%'>
+    <tr>
+      <td><label for="filter[name]"><%=_('Filter name')%></label></td>
+      <td colspan='3'><%=text_field 'filter', 'name' %></td>
+    </tr>
+    <tr><td colspan="4"><%=_('Messages matching')%></td></tr>
+    <%= render_partial_collection "expr", @expressions %>
+    <tr><td colspan="4"><input type="submit" name="op" value="<%=_('Add')%>"/></td></tr>
+    <tr>
+      <td><label for="filter[destination_folder]"><%=_('Will be placed in')%></label></td>
+      <td  colspan='3'>
+        <select name="filter[destination_folder]">
+        <%= options_from_collection_for_select(@destfolders, 'name', 'name', @filter.destination_folder) %>
+        </select>
+      </td>
+    </tr>
+    <tr><td colspan="4">
+      <input type="submit" name="op" value="<%=_('Save')%>"/>
+      <input type="button" name="op" value="<%=_('Cancel')%>" onclick="changeLoc('/webmail/webmail/filters');"/>
+    </td></tr>  
+  </table>
+  
+  </form>
+</div>  
+</div></div>  

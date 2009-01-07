@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+require File.dirname(__FILE__) + "/../config/environment"
+
+# RAILS_ROOT is just one up
+RAILS_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
+include Mailr::Localization
+
+
+# goto RAILS_ROOT so we can address all files relatively from there
+Dir.chdir(RAILS_ROOT)
+
+# directories and extensions to harvest
+dirpattern = '{app,components,lib}'
+extpattern = 'r{b,html,xml}'
+
+total_replacements = 0
+
+Dir.glob("#{dirpattern}/**/*.#{extpattern}").each do |f|
+  next if f == 'lib/localization.rb'
+  puts "Scanning file #{f}"
+  fc = ""
+  re = /l[ ]?\(\:([a-z0-9\_\-]*)[ ]?\)/
+  File.open(f, "r").each_line { |line| fc << line}
+  has_replacements = 0	
+  # remeber that it will not work if there are localized messages with parameters
+  # e.g. l(:key, param1, param2) - this should be fixed locally with:
+  # sprintf(_('message'), param1, param2
+  fc = fc.gsub(re) { |match| 
+  		result = ""
+  		has_replacements = has_replacements + 1
+  		total_replacements = total_replacements + 1
+  		match.scan(re) { |token| 
+    		result = "_('"<<eval("l(:#{token})").gsub("'", "\\'") << "')"
+    	}
+    	result 	
+  	}
+  f = File.open(f, "w")
+  f << fc
+  f.close
+  puts "... #{has_replacements} replacements made." if has_replacements > 0
+end
+
+puts "Done - #{total_replacements} total replacements made."

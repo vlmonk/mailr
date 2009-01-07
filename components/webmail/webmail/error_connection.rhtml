@@ -1,0 +1,28 @@
+<h1><%=_('Mailbox')%></h1>
+<div id="header">
+  <ul id="primary">
+      <li><span><%= _('Folders') %></span>
+        <ul id="secondary">
+            <li><%=link_refresh%></li>
+        </ul>
+      </li>
+    <li><%=link_send_mail%></li>
+    <li><%=link_mail_prefs%></li>
+    <li><%=link_mail_filters%></li>
+    <li><%=link_main%></li>
+  </ul>
+</div>
+<div id="tab_main">
+<div id="tab_content">
+
+<% content_for('sidebar') { %>  
+<div id="folders">
+  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
+  <hr/>
+  <%=_('Error occured obtaining connection to mail server. Please excuse us!')%>
+</div>
+<% } %>
+<div id="messages">
+</div>
+
+</div></div>

@@ -1,0 +1,43 @@
+<h1><%= _('Contacts You Are About To Import')%></h1>
+
+<% if @flash["errors"] and not @flash["errors"].empty?%>
+  <%= _('Errors')%>
+  <ul>
+  <% @flash["errors"].each do |message| %>
+  <li><%= message %>
+  <% end %>
+  </ul>
+<% end %>
+
+<form action="<%=link_contact_import%>" method="post">
+
+  <table class="list">
+    <tr>
+      <th>&nbsp;</th>
+      <th width="100px"><%= _('First name')%></th>
+      <th width="100px"><%= _('Last name')%></th>
+      <th><%= _('E-mail')%></th>
+    </tr>	
+    <%  
+	for i in 0...@contacts.length
+    	contact = @contacts[i]
+    %>
+    <tr class="<%= alternator %>">
+      <td><%=i+1%></td>
+      <td><input type="text" name="contact[<%=i%>][fname]" value="<%=contact.fname%>" size="15" /></td>
+      <td><input type="text" name="contact[<%=i%>][lname]" value="<%=contact.lname%>" size="15" /></td>
+      <td><input type="text" name="contact[<%=i%>][email]" value="<%=contact.email%>" size="45" /></td>
+    </tr>
+	
+  <% end %>
+	
+    <tr>
+      <td colspan=4 class="buttonBar">
+	<input type="submit" value="<%= _('Import')%>">
+	<input type="button" value="<%= _('Choose another file')%>" onclick="window.location='<%=link_contact_add_multiple%>'">
+	<input type="button" value="<%= _('Back to contacts')%>" onclick="window.location='<%=link_contact_list%>'">
+	<input type="button" value="<%= _('Back to folders')%>" onclick="window.location='<%=link_main_index%>'">
+      </td>
+    </tr>
+  </table>
+</form>
