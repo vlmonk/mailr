@@ -235,7 +235,8 @@ class IMAPFolderList
     result = @mailbox.imap.list('', '*')
     if result 
       result.each do |info|
-        @folders[info.name] = IMAPFolder.new(@mailbox, info.name, @username, info.attr, info.delim)
+        folder = IMAPFolder.new(@mailbox, info.name, @username, info.attr, info.delim)
+        @folders[folder.name] = folder
       end
     else
       # if there are no folders subscribe to INBOX - this is on first use
@@ -252,6 +253,7 @@ end
 class IMAPFolder
   attr_reader :mailbox
   attr_reader :name
+  attr_reader :utf7_name
   attr_reader :username
   attr_reader :delim
   attr_reader :attribs
@@ -263,9 +265,10 @@ class IMAPFolder
 	
   @@fetch_attr = ['ENVELOPE','BODYSTRUCTURE', 'FLAGS', 'UID', 'RFC822.SIZE']
 	
-  def initialize(mailbox, name, username, attribs, delim)
+  def initialize(mailbox, utf7_name, username, attribs, delim)
     @mailbox = mailbox
-    @name = name
+    @utf7_name = utf7_name
+    @name = Net::IMAP.decode_utf7 utf7_name
     @username = username
     @messages = Array.new
     @delim = delim
@@ -277,7 +280,7 @@ class IMAPFolder
   def activate
     if(@mailbox.selected_mailbox != @name)
       @mailbox.selected_mailbox = @name
-      @mailbox.imap.select(@name)
+      @mailbox.imap.select(@utf7_name)
       load_total_unseen if !@cached
     end
   end
@@ -482,16 +485,16 @@ class IMAPFolder
   end
   
   def load_total_unseen
-    stat = @mailbox.imap.status(@name, ["MESSAGES", "UNSEEN"])
+    stat = @mailbox.imap.status(@utf7_name, ["MESSAGES", "UNSEEN"])
     @total_messages, @unseen_messages = stat["MESSAGES"], stat['UNSEEN']
     @cached = true
   end
   
   def update_status
-    @status ||= @mailbox.imap.status(@name, ["MESSAGES"])
+    @status ||= @mailbox.imap.status(@utf7_name, ["MESSAGES"])
   end
   
   def subscribe
-    @mailbox.imap.subscribe(@name)
+    @mailbox.imap.subscribe(@utf7_name)
   end
 end

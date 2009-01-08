@@ -2,3 +2,4 @@ log
 config/database.yml
 .*.sw?
 config/site.rb
+tmp
