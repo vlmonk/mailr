@@ -23,7 +23,7 @@ class Customer < ActiveRecord::Base
   end
   
   def check_for_domain(email)
-    if email and !email.nil? and !email.include?("@")
+    if email && !email.nil? && !email.include?("@") && CDF::CONFIG[:send_from_domain]
       email + "@" + CDF::CONFIG[:send_from_domain]
     else
       email

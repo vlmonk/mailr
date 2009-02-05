@@ -7,9 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   # Keep in mind you can assign values other than :controller and :action
   map.connect '', :controller=>'webmail', :action=>'index'
 
-  map.connect 'webmail', :controller=>'webmail/webmail', :action=>'index'
+  map.connect 'webmail', :controller=>'webmail', :action=>'index'
 
-  map.connect 'webmail/:action', :controller=>'webmail/webmail'
+  map.connect 'webmail/:action', :controller=>'webmail'
   
   map.connect 'contacts/contact/:action', :controller=>'contacts/contact'
   

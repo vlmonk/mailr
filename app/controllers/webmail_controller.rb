@@ -150,7 +150,7 @@ class WebmailController < ApplicationController
         
         # delete temporary files (attachments)
         @mail.delete_attachments()
-        return render("webmail/webmail/mailsent")
+        render :action => "webmail/mailsent"
       elsif operation == _('Add')
         @mail = create_mail
         attachment = CDF::Attachment.new(@mail)

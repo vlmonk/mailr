@@ -124,9 +124,9 @@ class CDF::Mail
     }
     encmail = m.encoded
     RAILS_DEFAULT_LOGGER.debug("Sending message \n #{encmail}")
-    Net::SMTP.start(ActionMailer::Base.server_settings[:address], ActionMailer::Base.server_settings[:port], 
-          ActionMailer::Base.server_settings[:domain], ActionMailer::Base.server_settings[:user_name], 
-          ActionMailer::Base.server_settings[:password], ActionMailer::Base.server_settings[:authentication]) do |smtp|
+    Net::SMTP.start(ActionMailer::Base.smtp_settings[:address], ActionMailer::Base.smtp_settings[:port], 
+          ActionMailer::Base.smtp_settings[:domain], ActionMailer::Base.smtp_settings[:user_name], 
+          ActionMailer::Base.smtp_settings[:password], ActionMailer::Base.smtp_settings[:authentication]) do |smtp|
         smtp.sendmail(encmail, m.from, m.destinations)
     end
     return encmail
