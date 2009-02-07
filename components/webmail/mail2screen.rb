@@ -126,13 +126,13 @@ module Mail2Screen
     if filename == ""
       ""
     else
-      "<span class='attachment'>&nbsp;<a href='/webmail/webmail/download?msg_id=#{msg_id}&ctype=" << CGI.escape(filename) << "'>#{filename}</a></span>"
+      "<span class='attachment'>&nbsp;<a href='/webmail/download?msg_id=#{msg_id}&ctype=" << CGI.escape(filename) << "'>#{filename}</a></span>"
     end
   end
   
   def add_image(content_type, msg_id)
     filename = (content_type.nil? or content_type['name'].nil? ? "" : content_type['name'])
-    "<hr/><span class='attachment'><br/><img src='/webmail/webmail/download?msg_id=#{msg_id}&ctype=" << CGI.escape(filename) << "' alt='#{filename}'/></span>"
+    "<hr/><span class='attachment'><br/><img src='/webmail/download?msg_id=#{msg_id}&ctype=" << CGI.escape(filename) << "' alt='#{filename}'/></span>"
   end
   
   def friendly_address(addr)

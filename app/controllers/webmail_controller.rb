@@ -438,11 +438,11 @@ class WebmailController < ApplicationController
     else  
       disposition = "attachment"
     end
-    @headers['Content-Length'] = part.body.size
-    @response.headers['Accept-Ranges'] = 'bytes'
-    @headers['Content-type'] = part.content_type.strip
-    @headers['Content-Disposition'] = disposition << %(; filename="#{part.header['content-type']['name']}")
-    render_text part.body
+    headers['Content-Length'] = part.body.size
+    response.headers['Accept-Ranges'] = 'bytes'
+    headers['Content-type'] = part.content_type.strip
+    headers['Content-Disposition'] = disposition << %(; filename="#{part.header['content-type']['name']}")
+    render :text => part.body
   end
   
   def get_parts(mail)
