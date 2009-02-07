@@ -22,7 +22,7 @@
 <div id="messages">
   <div id="msglist">
     <h2><%= @folder_name %></h2>
-    <%= form_tag({:controller=>'/webmail/webmail', :action=>'messages'})%>
+    <%= form_tag({:controller=>'webmail', :action=>'messages'})%>
     <div class='notviscode'><input type="submit" name="op" value="<%=_('Search')%>" /></div>
     <input type="hidden" name="page" value="<%=@page%>"/>
     

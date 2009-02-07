@@ -335,7 +335,7 @@ class IMAPFolder
   
   def move_multiple(message_uids, dst_folder)
     activate
-    @mailbox.imap.uid_copy(message_uids, dst_folder)
+    @mailbox.imap.uid_copy(message_uids, @mailbox.folders[dst_folder].utf7_name)
     @mailbox.imap.uid_store(message_uids, "+FLAGS", :Deleted)
     @mailbox.folders[dst_folder].cached = false if @mailbox.folders[dst_folder]
     @mailbox.folders[dst_folder].mcached = false if @mailbox.folders[dst_folder]
