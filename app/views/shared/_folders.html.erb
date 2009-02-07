@@ -1,5 +1,5 @@
 <div id="folders">
-  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
+  <h4><%=_('Folders')%><br/><%= link_to 'add/edit', folders_path %></h4>
   <hr/>
   <ul> <% for folder in @folders %>
     <li><%=folder_link(folder)%></li> <% end %> 

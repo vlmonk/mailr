@@ -58,3 +58,5 @@ b.br {bottom: -1px; right: -1px; background-position: bottom right;}
 #wholepage { color: #000 }
 
 #logout {font-size: 10px; color: #5350b9; float: right;}
+
+#new_folder ul {list-style: none;}

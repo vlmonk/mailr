@@ -19,10 +19,11 @@ module NavigationHelper
     if folder.name == CDF::CONFIG[:mail_trash] or folder.name == CDF::CONFIG[:mail_inbox] or folder.name == CDF::CONFIG[:mail_sent]
       short_fn(folder)
     else
-      return short_fn(folder) +
-      ("&nbsp;" + link_to(_('(Delete)'), :controller=>"webmail", :action=>"manage_folders", :params=>{"op"=>_('(Delete)'), "folder_name"=>folder.name}))
+      short_fn(folder) + '&nbsp;' + link_to(_('Delete'), folder_path(folder.name), :method => :delete)
     end  
   end
+
+  private
 
   def short_fn(folder)
     if folder.name.include? folder.delim

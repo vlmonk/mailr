@@ -5,7 +5,7 @@ require 'mail2screen'
 require 'ezcrypto'
 
 class WebmailController < ApplicationController
-#   uses_component_template_root
+  include ImapUtils
   
   # Administrative functions
   before_filter :login_required
@@ -33,17 +33,6 @@ class WebmailController < ApplicationController
     @mailbox.reload
     @folders = @mailbox.folders
     redirect_to(:action=>'messages')
-  end
-  
-  def manage_folders
-    if operation_param == _('Add folder')
-      @mailbox.create_folder(CDF::CONFIG[:mail_inbox]+"."+params["folder_name"])
-    elsif operation_param == _('(Delete)')
-      @mailbox.delete_folder(params["folder_name"])
-    elsif operation_param == _('(Subscribe)')
-    elsif operation_param == _('(Select)')
-    end
-    @folders = @mailbox.folders
   end
   
   def messages
@@ -334,62 +323,12 @@ class WebmailController < ApplicationController
   
   private
   
-  def get_upass
-    if CDF::CONFIG[:crypt_session_pass]
-      EzCrypto::Key.decrypt_with_password(CDF::CONFIG[:encryption_password], CDF::CONFIG[:encryption_salt], session["wmp"])
-    else
-      # retrun it plain
-      session["wmp"]
-    end  
-  end  
-  
   def get_to_folders
     res = Array.new
     @folders.each{|f| res << f unless f.name == CDF::CONFIG[:mail_sent] or f.name == CDF::CONFIG[:mail_inbox] }
     res
   end
   
-  def load_imap_session
-    return if ['error_connection'].include?(action_name)
-    get_imap_session
-  end
-  
-  def get_imap_session
-    begin
-      @mailbox = IMAPMailbox.new
-      uname = (get_mail_prefs.check_external_mail == 1 ? user.email : user.local_email)
-      upass = get_upass
-      @mailbox.connect(uname, upass)
-      load_folders
-    rescue Exception => ex
-      logger.error("Exception on loggin webmail session - #{ex} - #{ex.backtrace.join("\t\n")}")
-      render :action => "error_connection"
-    end   
-  end
-  
-  def close_imap_session
-    return if @mailbox.nil? or not(@mailbox.connected)
-    @mailbox.disconnect
-    @mailbox = nil
-  end
-  
-  def have_to_load_folders?
-    return true if ['messages', 'delete', 'reply', 'forward', 'empty', 'message', 'download',
-                 'filter', 'filter_add', 'view_source', 'compose', 'prefs', 'filters'].include?(action_name)
-    return false
-  end
-  
-  def load_folders
-    if have_to_load_folders?()
-      if params["folder_name"]
-        @folder_name = params["folder_name"]
-      else
-        @folder_name = session["folder_name"] ? session["folder_name"] : CDF::CONFIG[:mail_inbox]
-      end
-      session["folder_name"] = @folder_name
-      @folders = @mailbox.folders if @folders.nil?
-    end  
-  end
   
   def create_mail
     m = CDF::Mail.new(user.mail_temporary_path)
@@ -416,19 +355,6 @@ class WebmailController < ApplicationController
     m
   end
   
-  def user
-    @user = Customer.find(logged_customer) if @user.nil?
-    @user
-  end
-  
-  def get_mail_prefs
-    if not(@mailprefs)
-      if not(@mailprefs = MailPref.find_by_customer_id(logged_customer))
-        @mailprefs = MailPref.create("customer_id"=>logged_customer)
-      end
-    end  
-    @mailprefs
-  end
   
   def send_part(part)
     if part.content_type == "text/html"

@@ -19,13 +19,13 @@
 <div id="folders">
   <h4><%=_('Add folder')%></h4>
   <hr/>
-  <form action="/webmail/webmail/manage_folders" method="post">
+  <% form_tag folders_path, :id => 'new_folder' do %>
     <ul>
-      <li><label for='folder_name'><%=_('Name')%>:</label></li>
-      <li><input type="text" name="folder_name" value="" size="18" id='folder_name'/></li>
-      <li><input type="submit" name="op" value="<%=_('Add folder')%>"/></li>
+      <li><label for='folder'><%=_('Name')%>:</label></li>
+      <li><%= text_field_tag 'folder', '', :size => 18 %></li>
+      <li><%= submit_tag _('Add folder') %></li>
     </ul>
-  </form>
+  <% end %>
 </div>    
 <% } %>
 

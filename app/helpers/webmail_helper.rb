@@ -35,10 +35,6 @@ module WebmailHelper
     link_to(_('View source'), {:controller=>"webmail", :action=>"view_source", :params=>{"msg_id"=>msg_id}}, {'target'=>"_blank"})
   end
   
-  def link_manage_folders
-    link_to(_('add/edit'), :controller=>"webmail", :action=>"manage_folders")
-  end
-
   def link_filter_add
     link_to(_('Add filter'), :controller=>'webmail', :action=>'filter_add')
   end
