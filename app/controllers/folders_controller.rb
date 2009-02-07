@@ -1,3 +1,4 @@
+require 'ezcrypto'
 class FoldersController < ApplicationController
   include ImapUtils
 

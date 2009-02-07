@@ -156,16 +156,16 @@ class IMAPMailbox
   end
   
   def create_folder(name)
-    begin
-      @imap.create(name)
-      reload
-    rescue Exception=>e
-    end
+#     begin
+    @imap.create(Net::IMAP.encode_utf7(name))
+    reload
+#     rescue Exception=>e
+#     end
   end
   
   def delete_folder(name)
     begin
-      @imap.delete(name)
+      @imap.delete(folders[name].utf7_name)
       reload
     rescue Exception=>e
       logger.error("Exception on delete #{name} folder #{e}") 
