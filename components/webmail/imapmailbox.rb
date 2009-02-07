@@ -287,6 +287,7 @@ class IMAPFolder
   
   # Just delete message without interaction with Trash folder
   def delete(message)
+    activate
     uid = (message.kind_of?(Integer) ? message : message.uid)
     @mailbox.imap.uid_store(uid, "+FLAGS", :Deleted)
     @mailbox.imap.expunge

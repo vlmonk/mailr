@@ -111,7 +111,7 @@ class WebmailController < ApplicationController
   
   def delete
     @msg_id = msg_id_param.to_i
-    folder.messages().delete(@msg_id)
+    folder.delete(@msg_id)
     redirect_to(:action=>"messages")
   end
   
