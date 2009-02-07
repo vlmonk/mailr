@@ -1,8 +1,10 @@
 <div id="folders">
   <h4><%=_('Folders')%><br/><%= link_to 'add/edit', folders_path %></h4>
   <hr/>
-  <ul> <% for folder in @folders %>
-    <li><%=folder_link(folder)%></li> <% end %> 
+  <ul>
+    <% @folders.each do |folder| -%>
+    <li><%= folder_link(folder) %></li> 
+    <% end -%> 
   </ul>
 </div>
 <div style="text-align: center; padding: 10px;">

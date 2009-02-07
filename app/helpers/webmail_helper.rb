@@ -40,29 +40,14 @@ module WebmailHelper
   end
   
   def folder_link(folder)
-  	if folder.attribs.include? :Noselect
-      return folder.name
-    end
-    unseen_messages = folder.unseen
-    if unseen_messages > 0
-      fn = "#{short_fn(folder)} (#{folder.unseen})"
-    else
-      fn = "#{short_fn(folder)}"
-    end      
-    if folder.name == CDF::CONFIG[:mail_trash]
-      (unseen_messages > 0 ? "<b>" : "" ) <<
-        link_to( fn, :controller=>"webmail", :action=>"messages", :params=>{"folder_name"=>folder.name}) << 
-          "&nbsp;" << link_to(_('(Empty)'), {:controller=>"webmail", :action=>"empty", :params=>{"folder_name"=>folder.name}}, :confirm => _('Do you really want to empty trash?')) <<
-      (unseen_messages > 0 ? "</b>" : "" )
-    else
-      (unseen_messages > 0 ? "<b>" : "" ) <<
-      link_to( fn, :controller=>"webmail", :action=>"messages", :params=>{"folder_name"=>folder.name}) <<
-      (unseen_messages > 0 ? "</b>" : "" )
-    end  
+    return folder.name if folder.attribs.include?(:Noselect)
+    title = folder.unseen > 0 ? "#{short_fn(folder)} (#{folder.unseen})" :  "#{short_fn(folder)}"
+    link = link_to title, :controller => 'webmail', :action => 'messages', :folder_name => folder.name
+    link = content_tag('b', link) if folder.name == @folder_name
+    link += '&nbsp;' + empty_trash_link(folder.name) if folder.trash?
+    link
   end
-  
-  
-  
+
   def message_date(datestr)
     t = Time.now
     begin
@@ -172,5 +157,12 @@ module WebmailHelper
   		return "#{size}&nbsp;B"
   	end	
   end
-end
 
+  private
+
+  def empty_trash_link(folder_name)
+    link_to(_('(Empty)'),
+      { :controller => "webmail", :action => "empty", :params=>{"folder_name"=>folder_name}},
+      :confirm => _('Do you really want to empty trash?')) 
+  end
+end

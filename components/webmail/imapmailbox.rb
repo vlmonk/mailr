@@ -498,4 +498,8 @@ class IMAPFolder
   def subscribe
     @mailbox.imap.subscribe(@utf7_name)
   end
+
+  def trash?
+    self.name == CDF::CONFIG[:mail_trash]
+  end
 end
