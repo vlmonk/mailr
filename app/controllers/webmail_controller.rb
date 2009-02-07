@@ -194,9 +194,7 @@ class WebmailController < ApplicationController
   
   def prefs
     @customer = Customer.find(logged_customer)
-    if not(@mailpref = MailPref.find_by_customer(logged_customer))
-      @mailpref = MailPref.create("customer_id"=>logged_customer)
-    end
+    @mailpref = MailPref.find_or_create_by_customer_id logged_customer
     
     if params['op'] == _('Save')
       if params['customer']
