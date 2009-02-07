@@ -30,7 +30,7 @@
   <div id="topmenu">
     <ul class="actionmenu">
       <li>
-      <%= link_to(_("&#171; Back to list"), :controller=>"/webmail/webmail", :action=>"messages") %>
+      <%= link_to(_("&#171; Back to list"), :controller=>"webmail", :action=>"messages") %>
       </li>
       <li><%=link_reply_to_sender(@msg_id)%></li>
       <li><%=link_forward_message(@msg_id)%></li>

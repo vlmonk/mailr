@@ -124,7 +124,7 @@ class WebmailController < ApplicationController
     @mail = prepare_mail
     @mail.reply(@tmail, fb, get_mail_prefs.mail_type)
     
-    render_action("compose")
+    render :action => 'compose'
   end
   
   def forward
@@ -136,7 +136,7 @@ class WebmailController < ApplicationController
     @mail = prepare_mail
     @mail.forward(@tmail, fb)
     
-    render_action("compose")
+    render :action => 'compose'
   end
   
   def compose

@@ -140,13 +140,13 @@ class CDF::Mail
   end
     
   def reply(tmail, fb, type)
-		decoded_subject = mime_encoded?(tmail.subject) ? mime_decode(tmail.subject) : tmail.subject
-    self.subject = "[Re: #{decoded_subject}]"
-    tm = tmail.setup_reply(tmail)
-		self.to = tm.to
-		footer = ""
-		msg_id = ""
-		mt = MailTransform.new
+    decoded_subject = mime_encoded?(tmail.subject) ? mime_decode(tmail.subject) : tmail.subject
+    self.subject = "Re: #{decoded_subject}"
+    tm = tmail.create_reply
+    self.to = tm.to
+    footer = ""
+    msg_id = ""
+    mt = MailTransform.new
     self.body = mt.get_body(tmail, type)
   end
         
