@@ -1,4 +1,4 @@
-module Contacts::ContactHelper
+module ContactHelper
   def link_import_preview() "/contacts/contact/import_preview" end
   def link_main_index() "/webmail/webmail/folders" end
   def link_contact_save() "/contacts/contact/save" end

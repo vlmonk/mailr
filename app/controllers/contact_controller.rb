@@ -1,11 +1,4 @@
-class Contacts::ContactController < ApplicationController
-
-  uses_component_template_root
-
-  model :customer
-  model :contact
-  model :contact_group
-  helper :pagination
+class ContactController < ApplicationController
   layout :select_layout
   
   def index
@@ -13,12 +6,12 @@ class Contacts::ContactController < ApplicationController
   end
 
   def list
-    @contact_pages = Paginator.new(self, Contact.count("customer_id = #{logged_user}"), CDF::CONFIG[:contacts_per_page], @params['page'])
+    @contact_pages = Paginator.new(self, Contact.count("customer_id = #{logged_user}"), CDF::CONFIG[:contacts_per_page], params['page'])
     @contacts = Contact.find(:all, :conditions=>["customer_id = #{logged_user}"], :order=>['fname'], :limit=>CDF::CONFIG[:contacts_per_page], :offset=>@contact_pages.current.offset)
     
-    if @params["mode"] == "groups"
-      if @params["id"] and not @params["id"].nil? and not @params["id"] == ''
-        @group_id = @params["id"].to_i
+    if params["mode"] == "groups"
+      if params["id"] and not params["id"].nil? and not params["id"] == ''
+        @group_id = params["id"].to_i
         @contacts_for_group = Hash.new
         for contact in @contacts
           @contacts_for_group[contact.id] = 0 # initialize
@@ -35,13 +28,13 @@ class Contacts::ContactController < ApplicationController
   def listLetter
     letters = CDF::CONFIG[:contact_letters]
     @contact_pages = Paginator.new(self, Contact.count(
-      ["customer_id = %s and substr(UPPER(fname),1,1) = '%s'", logged_user, letters[@params['id'].to_i]]), CDF::CONFIG[:contacts_per_page], @params['page'])
-    @contacts = Contact.find(:all, :conditions=>["customer_id = %s and substr(UPPER(fname),1,1) = '%s'", logged_user, letters[@params['id'].to_i]], 
+      ["customer_id = %s and substr(UPPER(fname),1,1) = '%s'", logged_user, letters[params['id'].to_i]]), CDF::CONFIG[:contacts_per_page], params['page'])
+    @contacts = Contact.find(:all, :conditions=>["customer_id = %s and substr(UPPER(fname),1,1) = '%s'", logged_user, letters[params['id'].to_i]], 
                              :order=>['fname'],  :limit=>CDF::CONFIG[:contacts_per_page], :offset=>@contact_pages.current.offset)
       
-    if @params["mode"] == "groups"
-      if @params["group_id"] and not @params["group_id"].nil? and not @params["group_id"] == ''
-        @group_id = @params["group_id"].to_i
+    if params["mode"] == "groups"
+      if params["group_id"] and not params["group_id"].nil? and not params["group_id"] == ''
+        @group_id = params["group_id"].to_i
         @contacts_for_group = Hash.new
         for contact in @contacts
           @contacts_for_group[contact.id] = 0 # initialize
@@ -78,8 +71,8 @@ class Contacts::ContactController < ApplicationController
   end
   
   def add_from_mail
-    cstr = @params['cstr']
-    retmsg = @params['retmsg']
+    cstr = params['cstr']
+    retmsg = params['retmsg']
     @session["return_to"] = url_for(:controller=>'/webmail/webmail',
                                     :action=>'folders',
                                     :msg_id=>retmsg)
@@ -132,18 +125,18 @@ class Contacts::ContactController < ApplicationController
   end
   
   def import_preview
-    file = @params["contact"]["data"]
+    file = params["contact"]["data"]
     
     flash["errors"] = Array.new
     
     if file.size == 0
       flash["errors"] << _('You haven\'t selected file or the file is empty')
       @contact = Contact.new
-      @contact["file_type"] = @params["contact"]["file_type"]
+      @contact["file_type"] = params["contact"]["file_type"]
       render :action => "add_multiple"
     end
     
-    file_type = @params["contact"]["file_type"]
+    file_type = params["contact"]["file_type"]
     if file_type.nil? or file_type == '1'
       separator = ','
     else
@@ -174,8 +167,8 @@ class Contacts::ContactController < ApplicationController
   end
   
   def import
-    contacts_count = @params["contact"].length
-    contacts_to_import = @params["contact"]
+    contacts_count = params["contact"].length
+    contacts_to_import = params["contact"]
     @contacts = Array.new
     emails = Array.new
     
@@ -238,27 +231,27 @@ class Contacts::ContactController < ApplicationController
 
   
   def choose
-    if @params["mode"] == "groups"
+    if params["mode"] == "groups"
       save_groups
     end
     
     @tos, @ccs, @bccs = Array.new, Array.new, Array.new
     
-    @params["contacts_to"].each{ |id,value| @tos << Contact.find(id) if value == "1" } if @params["contacts_to"]
-    @params["contacts_cc"].each{ |id,value| @ccs << Contact.find(id) if value == "1" } if @params["contacts_cc"]
-    @params["contacts_bcc"].each{ |id,value| @bccs << Contact.find(id) if value == "1" } if @params["contacts_bcc"]
+    params["contacts_to"].each{ |id,value| @tos << Contact.find(id) if value == "1" } if params["contacts_to"]
+    params["contacts_cc"].each{ |id,value| @ccs << Contact.find(id) if value == "1" } if params["contacts_cc"]
+    params["contacts_bcc"].each{ |id,value| @bccs << Contact.find(id) if value == "1" } if params["contacts_bcc"]
     
-    @params["groups_to"].each{ |id,value| 
-      ContactGroup.find(id).contacts.each {|c| @tos << c} if value == "1" } if @params["groups_to"]
-    @params["groups_cc"].each{ |id,value| 
-      ContactGroup.find(id).contacts.each {|c| @ccs << c} if value == "1" } if @params["groups_cc"]
-    @params["groups_bcc"].each{ |id,value| 
-      ContactGroup.find(id).contacts.each {|c| @bccs << c} if value == "1" } if @params["groups_bcc"]
+    params["groups_to"].each{ |id,value| 
+      ContactGroup.find(id).contacts.each {|c| @tos << c} if value == "1" } if params["groups_to"]
+    params["groups_cc"].each{ |id,value| 
+      ContactGroup.find(id).contacts.each {|c| @ccs << c} if value == "1" } if params["groups_cc"]
+    params["groups_bcc"].each{ |id,value| 
+      ContactGroup.find(id).contacts.each {|c| @bccs << c} if value == "1" } if params["groups_bcc"]
   end
   
   def save_groups
-    contacts_for_group = @params["contacts_for_group"]
-    group_id = @params["group_id"]
+    contacts_for_group = params["contacts_for_group"]
+    group_id = params["group_id"]
     contact_group = ContactGroup.find(group_id)
     
     
@@ -271,11 +264,11 @@ class Contacts::ContactController < ApplicationController
         contact_group.contacts.delete(contact) 
       end
     }
-    redirect_to(:action=>"list", :id=>group_id, :params=>{"mode"=>@params["mode"]})
+    redirect_to(:action=>"list", :id=>group_id, :params=>{"mode"=>params["mode"]})
   end
   
   def edit
-    @contact = Contact.find(@params["id"])
+    @contact = Contact.find(params["id"])
     # load related lists
     loadLists
     
@@ -301,18 +294,18 @@ class Contacts::ContactController < ApplicationController
   # Insert or update
   def save
     logger.info("BEGIN")
-    if @params["contact"]["id"] == ""
+    if params["contact"]["id"] == ""
       # New contact
-      @contact = Contact.create(@params["contact"])
+      @contact = Contact.create(params["contact"])
     else
       # Edit existing
-      @contact = Contact.find(@params["contact"]["id"])
-      @contact.attributes = @params["contact"]
+      @contact = Contact.find(params["contact"]["id"])
+      @contact.attributes = params["contact"]
     end
   
     @contactgroups = ContactGroup.find_by_user(logged_user)
     # Groups displayed
-    groups = @params['groups']
+    groups = params['groups']
     tempGroups = Array.new
     tempGroups.concat(@contact.groups)
     
@@ -333,7 +326,7 @@ class Contacts::ContactController < ApplicationController
       end
     }
     if @contact.save
-      if @params["paction"] == _('Save')
+      if params["paction"] == _('Save')
         redirect_to :controller => "/contacts/contact", :action =>"list"
       else
         redirect_to :controller => "/contacts/contact", :action =>"add"
@@ -353,7 +346,7 @@ class Contacts::ContactController < ApplicationController
   end
   
   def delete
-    Contact.destroy(@params['id'])
+    Contact.destroy(params['id'])
     redirect_to(:action=>'list')
   end
   
@@ -377,11 +370,11 @@ class Contacts::ContactController < ApplicationController
       end
   private
     def select_layout
-      if @params["mode"] == "choose"
+      if params["mode"] == "choose"
         @mode = "choose"
         @contactgroups = ContactGroup.find_by_user(logged_user)
         'chooser'
-      elsif @params["mode"] == "groups"
+      elsif params["mode"] == "groups"
         @mode = "groups"
         'public'
       else

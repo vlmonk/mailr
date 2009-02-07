@@ -9,7 +9,7 @@
       <ul id="secondary">
         <li><%=link_contact_add_one%></li>
         <li><%=link_contact_add_multiple%></li>
-	<% if ret = @session["return_to"] %>
+	<% if ret = session["return_to"] %>
 	<li><%=link_to(_('Back to message'), ret) %></li>
 	<% end %>
       </ul>
@@ -20,7 +20,7 @@
 <div id="tab_main">
   <div id="tab_content">
     
-    <% if @flash["alert"] %><ul><li><%= @flash["alert"] %></li></ul><% end %>
+    <% if flash["alert"] %><ul><li><%= flash["alert"] %></li></ul><% end %>
     <form action="<%=link_contact_choose%>?mode=<%=@mode%>" method="post">
       <input type="hidden" name="mode" value="<%=@mode%>"/>
       <% if @group_id and not @group_id.nil? %>
@@ -39,7 +39,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="3"><%= @contact_pages.basic_html(self, 2, false, {"mode"=>@mode}) %></td>
+          <td colspan="3"><%= pagination_links @contact_pages, {}, :mode => @mode %></td>
         </tr>
         <% if @mode == "choose" %>	
         <tr>
