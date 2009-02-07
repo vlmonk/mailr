@@ -1,6 +1,6 @@
 module ContactHelper
   def link_import_preview() "/contacts/contact/import_preview" end
-  def link_main_index() "/webmail/webmail/folders" end
+  def link_main_index() "/webmail/folders" end
   def link_contact_save() "/contacts/contact/save" end
   def link_contact_import() "/contacts/contact/import" end
   def link_contact_choose() "/contacts/contact/choose" end
@@ -22,19 +22,19 @@ module ContactHelper
   end
 
   def link_folders
-    link_to(_('Folders'), :controller=>"/webmail/webmail", :action=>"messages")
+    link_to(_('Folders'), :controller=>"/webmail", :action=>"messages")
   end
   
   def link_send_mail
-    link_to(_('Compose'), :controller=>"/webmail/webmail", :action=>"compose")
+    link_to(_('Compose'), :controller=>"/webmail", :action=>"compose")
   end
 
   def link_mail_prefs
-    link_to(_('Preferences'), :controller=>"/webmail/webmail", :action=>"prefs")
+    link_to(_('Preferences'), :controller=>"/webmail", :action=>"prefs")
   end
   
   def link_mail_filters
-    link_to(_('Filters'), :controller=>"/webmail/webmail", :action=>"filters")
+    link_to(_('Filters'), :controller=>"/webmail", :action=>"filters")
   end
 
 end
