@@ -16,13 +16,7 @@
 <div id="tab_content">
 
 <% content_for('sidebar') { %>  
-<div id="folders">
-  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
-  <hr/>
-  <ul> <% for folder in @folders %>
-    <li><%=folder_link(folder)%></li> <% end %> 
-  </ul>
-</div>
+  <%= render :partial => 'shared/folders' %>
 <% } %>
 <div id="messages">
 
