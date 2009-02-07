@@ -1,3 +1,7 @@
+<% content_for('sidebar') { %>
+  <%= render :partial => 'shared/folders' %>
+<% } %>
+
 <h1><%=_('Mailbox')%></h1>
 <form name="composeMail" id='composeMail' action="/webmail/compose"  enctype="multipart/form-data" method="post">
 <div id="header">

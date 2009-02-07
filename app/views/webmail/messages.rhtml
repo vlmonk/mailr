@@ -15,17 +15,8 @@
 <div id="tab_main">
 <div id="tab_content">
 
-<% content_for('sidebar') { %>  
-<div id="folders">
-  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
-  <hr/>
-  <ul> <% for folder in @folders %>
-    <li><%=folder_link(folder)%></li> <% end %> 
-  </ul>
-</div>
-<div style="text-align: center; padding: 10px;">
-  <input type="button" value="<%= _('Logout')%>" onclick="window.location='/login/logout'">
-</div>
+<% content_for('sidebar') { %>
+  <%= render :partial => 'shared/folders' %>
 <% } %>
 
 <div id="messages">

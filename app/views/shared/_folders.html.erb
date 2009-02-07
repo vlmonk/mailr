@@ -1,0 +1,10 @@
+<div id="folders">
+  <h4><%=_('Folders')%><br/><%=link_manage_folders%></h4>
+  <hr/>
+  <ul> <% for folder in @folders %>
+    <li><%=folder_link(folder)%></li> <% end %> 
+  </ul>
+</div>
+<div style="text-align: center; padding: 10px;">
+  <input type="button" value="<%= _('Logout')%>" onclick="window.location='/login/logout'">
+</div>

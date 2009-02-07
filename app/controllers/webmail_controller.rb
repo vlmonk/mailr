@@ -350,7 +350,7 @@ class WebmailController < ApplicationController
   end
   
   def load_imap_session
-    return if ['compose', 'prefs', 'error_connection'].include?(action_name)
+    return if ['error_connection'].include?(action_name)
     get_imap_session
   end
   
@@ -375,7 +375,7 @@ class WebmailController < ApplicationController
   
   def have_to_load_folders?
     return true if ['messages', 'delete', 'reply', 'forward', 'empty', 'message', 'download',
-                 'filter', 'filter_add', 'view_source'].include?(action_name)
+                 'filter', 'filter_add', 'view_source', 'compose', 'prefs', 'filters'].include?(action_name)
     return false
   end
   

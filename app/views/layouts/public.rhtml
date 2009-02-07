@@ -15,9 +15,9 @@
   <div id="wholepage">
     <div id="container">
       <div id="sidebar_outer">
-	<div id="sidebar"><%= @content_for_sidebar %></div>
+	<div id="sidebar"><%= yield :sidebar %></div>
       </div>
-      <div id="content"><%= @content_for_layout %></div>
+      <div id="content"><%= yield %></div>
       <br class="clear"/>
     </div>
   </div>
