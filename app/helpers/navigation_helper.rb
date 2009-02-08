@@ -25,7 +25,6 @@ module NavigationHelper
 
   def link_import_preview() "/contacts/import_preview" end
   def link_main_index() "/" end
-  def link_contact_save() "/contacts/save" end
   def link_contact_import() "/contacts/import" end
   def link_contact_choose() "/contacts/contact/choose" end
 
@@ -34,7 +33,7 @@ module NavigationHelper
   end
 
   def link_contact_add_one
-    link_to(_('Add one contact'), :controller => "/contacts/contact", :action => "add") 
+    link_to(_('Add one contact'), new_contact_path)
   end
 
   def link_contact_add_multiple

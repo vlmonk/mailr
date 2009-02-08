@@ -8,7 +8,7 @@
     <li><span><%= _('Contacts') %></span>
       <ul id="secondary">
         <li><%=link_contact_list%></li>
-	<% if ret = @session["return_to"] %>
+	<% if ret = session["return_to"] %>
 	<li><%=link_to(_('Back to message'), ret) %></li>
 	<% end %>
       </ul>
@@ -20,13 +20,7 @@
   <div id="tab_content">
 
 
-    <%=
-    form_tag(
-      link_contact_save,
-      'method' => 'post',
-      'class' => 'two_columns'
-    )
-    %>
+    <% form_tag( contacts_path, 'method' => 'post', 'class' => 'two_columns') do %>
     <%= form_input(:hidden_field, 'contact', 'id') %>
     <%= form_input(:hidden_field, 'contact', 'customer_id') %>
   
@@ -74,6 +68,6 @@
 	    </td>
 	  </tr>	
 	</table>	
-  <%= end_form_tag %>
+      <% end %>
   </div>
 </div>

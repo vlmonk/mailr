@@ -59,7 +59,7 @@ class Contact < ActiveRecord::Base
       errors.add 'email', _('Please enter a valid email address.') unless valid_email?(self.email)
       # Already existing e-mail in contacts for this user is not allowed
       if self.new_record?
-        if Contact.find_first("email = '#{email}' and customer_id = #{customer_id}")
+        if Contact.find :first, :conditions => {:email => email, :customer_id => customer_id}
           errors.add('email', _('An account for your email address already exists.'))
         end
       end

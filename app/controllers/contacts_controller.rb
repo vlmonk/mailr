@@ -46,7 +46,7 @@ class ContactsController < ApplicationController
     render :action => "list"
   end
   
-  def add
+  def new
     @contact = Contact.new
     @contact.customer_id = logged_user
     
@@ -288,7 +288,7 @@ class ContactsController < ApplicationController
   end
   
   # Insert or update
-  def save
+  def create
     logger.info("BEGIN")
     if params["contact"]["id"] == ""
       # New contact
@@ -337,7 +337,7 @@ class ContactsController < ApplicationController
           @groups[g.id] = 0
         end      
       }
-      render :action => "add"
+      redirect_to contacts_path
     end
   end
   
