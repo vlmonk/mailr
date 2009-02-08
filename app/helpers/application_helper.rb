@@ -118,7 +118,7 @@ module ApplicationHelper
   end
 
   def link_main 
-    link_to(_('Contacts'), :controller => '/contact', :action => 'list') 
+    link_to(_('Contacts'), contacts_path)
   end
 
   def alternator

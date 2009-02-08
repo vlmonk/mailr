@@ -1,11 +1,7 @@
-class ContactController < ApplicationController
+class ContactsController < ApplicationController
   layout :select_layout
   
   def index
-    redirect_to(:action =>"list")
-  end
-
-  def list
     @contact_pages = Paginator.new(self, Contact.count("customer_id = #{logged_user}"), CDF::CONFIG[:contacts_per_page], params['page'])
     @contacts = Contact.find(:all, :conditions=>["customer_id = #{logged_user}"], :order=>['fname'], :limit=>CDF::CONFIG[:contacts_per_page], :offset=>@contact_pages.current.offset)
     

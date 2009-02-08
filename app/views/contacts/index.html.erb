@@ -33,7 +33,7 @@
 	letters = CDF::CONFIG[:contact_letters]
         for letterIndex in 0...letters.size
         letter = letters[letterIndex] %>
-	<%= link_to(letter, :controller=>"contact", :action=>"listLetter", :id=>letterIndex, :params=>{"mode"=>@mode, "group_id"=>(@group_id ? @group_id : nil)}) %>
+	<%= link_to(letter, :controller=>"contacts", :action=>"listLetter", :id=>letterIndex, :params=>{"mode"=>@mode, "group_id"=>(@group_id ? @group_id : nil)}) %>
         <% end %>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to(_('Show all'), :controller=>"contact", :action=>"list", :id=>(@group_id ? @group_id : nil), :params=>{"mode"=>@mode})%>
           </td>
