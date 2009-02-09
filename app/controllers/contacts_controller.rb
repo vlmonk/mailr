@@ -2,22 +2,11 @@ class ContactsController < ApplicationController
   layout :select_layout
   
   def index
-    @contact_pages = Paginator.new(self, Contact.count("customer_id = #{logged_user}"), CDF::CONFIG[:contacts_per_page], params['page'])
-    @contacts = Contact.find(:all, :conditions=>["customer_id = #{logged_user}"], :order=>['fname'], :limit=>CDF::CONFIG[:contacts_per_page], :offset=>@contact_pages.current.offset)
-    
-    if params["mode"] == "groups"
-      if params["id"] and not params["id"].nil? and not params["id"] == ''
-        @group_id = params["id"].to_i
-        @contacts_for_group = Hash.new
-        for contact in @contacts
-          @contacts_for_group[contact.id] = 0 # initialize
-          for gr in contact.groups
-            if gr.contact_group_id.to_i == @group_id
-              @contacts_for_group[contact.id] = 1 # checked
-            end
-          end
-        end
-      end
+    if params[:letter] && params[:letter].any?
+      @contacts = Contact.for_customer(logged_user).letter(params[:letter]).paginate :page => params[:page],
+        :per_page => CDF::CONFIG[:contacts_per_page]
+    else
+      @contacts = Contact.for_customer(logged_user).paginate :page => params[:page], :per_page => CDF::CONFIG[:contacts_per_page]
     end
   end
   

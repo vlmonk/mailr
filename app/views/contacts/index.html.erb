@@ -29,17 +29,15 @@
       <table class="list">
         <tr>
           <td colspan="4" id="alphaListHeader">
-        <% 
-	letters = CDF::CONFIG[:contact_letters]
-        for letterIndex in 0...letters.size
-        letter = letters[letterIndex] %>
-	<%= link_to(letter, :controller=>"contacts", :action=>"listLetter", :id=>letterIndex, :params=>{"mode"=>@mode, "group_id"=>(@group_id ? @group_id : nil)}) %>
-        <% end %>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to(_('Show all'), :controller=>"contact", :action=>"list", :id=>(@group_id ? @group_id : nil), :params=>{"mode"=>@mode})%>
+            <% CDF::CONFIG[:contact_letters].each do |letter| %>
+              <%= link_to letter, contacts_path(:letter => letter) %>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= link_to _('Show all'), contacts_path %>
           </td>
         </tr>
         <tr>
-          <td colspan="3"><%= pagination_links @contact_pages, {}, :mode => @mode %></td>
+          <td colspan="3"><%= will_paginate @contacts %></td>
         </tr>
         <% if @mode == "choose" %>	
         <tr>

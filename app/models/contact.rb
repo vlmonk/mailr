@@ -25,6 +25,9 @@ class Contact < ActiveRecord::Base
     }
     result
   end
+
+  named_scope :for_customer, lambda{ |customer_id| {:conditions => {:customer_id => customer_id}} }
+  named_scope :letter, lambda{ |letter| {:conditions => ["contacts.fname LIKE ?", "#{letter}%"]} }
   
   def Contact.find_by_user_letter(user_id, letter)
     find_by_sql("select * from contacts where customer_id=#{user_id} and substr(UPPER(fname),1,1) = '#{letter}' order by fname")
