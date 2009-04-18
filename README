@@ -2,17 +2,13 @@
 Installation Guide
 Requirements
 
-    * Ruby 1.8.2 or higher
-    * Rails 0.14.2
-    * MySQL or PostgreSQL with Ruby bindings
-    * Ruby-GetText? 0.8.0 or higher (http://ponx.s5.xrea.com/hiki/ruby-gettext.html) 
+    * Ruby 1.8.7 
+    * Rails 2.2.2
 
 Installation
 
    1. Checkout the source code
-   2. Create database called mailr. Create the database schema using db/schema.mysql.sql or db/schema.pgsql.sql
-   3. Change the config/database.yml to reflect your newly created database configuration
-   4. If you need to override some of the default constants used in the application take a look at config/default_site.rb. Then create config/site.rb that contains only the keys which you want to override. Example content of config/site.rb is:
+   2. If you need to override some of the default constants used in the application take a look at config/default_site.rb. Then create config/site.rb that contains only the keys which you want to override. Example content of config/site.rb is:
 
    module CDF
 
@@ -21,6 +17,4 @@ Installation
    }            
    end
 
-
-   5. Start your web server and login in the application with your IMAP user and password. 
-
+  3 Use it
