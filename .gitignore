@@ -4,3 +4,4 @@ config/database.yml
 config/site.rb
 tmp
 mail_temp
+config/site.rb
