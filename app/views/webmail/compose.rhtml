@@ -2,16 +2,16 @@
   <%= render :partial => 'shared/folders' %>
 <% } %>
 
-<h1><%=_('Mailbox')%></h1>
+<h1><%= t :mailbox%></h1>
 <form name="composeMail" id='composeMail' action="/webmail/compose"  enctype="multipart/form-data" method="post">
 <div id="header">
   <ul id="primary">
-    <li><%=link_folders%></li>
-    <li><span><%= _('Compose') %></span>
+    <li><%= link_folders %></li>
+    <li><span><%= t :compose %></span>
       <ul id="secondary">
-        <li><%=link_compose_new%></li>
-        <li><a href='#' onclick="getFormField('composeMail').submit();"><%=_('Send')%></a></li>
-        <li><a href="#" onclick="chooseContacts();"><%= _('Choose addresses from contacts') %></a></li>
+        <li><%= link_compose_new %></li>
+        <li><a href='#' onclick="getFormField('composeMail').submit();"><%= t :send %></a></li>
+        <li><a href="#" onclick="chooseContacts();"><%= t :choose_address %></a></li>
       </ul>
     </li>
     <li><%=link_mail_prefs%></li>
@@ -24,13 +24,13 @@
 
 <div id="msg-compose">
 <input type="hidden" id="mail_toc" name="mail[toc]" value="<%=@mail.toc%>"/>
-<input type="hidden" id="mail_op" name="op" value="<%=_('Send')%>"/>
+<input type="hidden" id="mail_op" name="op" value="<%= t :send %>"/>
 <div id="msghdr">
   <table>
-    <tr><td><label for=''><%=_('To')%></label></td><td><%= text_field_with_auto_complete(:mail, :to, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
-    <tr><td><label for=''><%=_('CC')%></label></td><td><%= text_field_with_auto_complete(:mail, :cc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
-    <tr><td><label for=''><%=_('BCC')%></label></td><td><%= text_field_with_auto_complete(:mail, :bcc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
-    <tr><td><label for=''><%=_('Subject')%></label></td><td><%= text_field('mail', 'subject', {"size"=>65}) %></td></tr>
+    <tr><td><label for=''><%= t :to %></label></td><td><%= text_field_with_auto_complete(:mail, :to, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%= t :cc %></label></td><td><%= text_field_with_auto_complete(:mail, :cc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%= t :bcc %></label></td><td><%= text_field_with_auto_complete(:mail, :bcc, {"size"=>65}, :skip_style => true, :tokens=> ",") %></td></tr>
+    <tr><td><label for=''><%= t :subject %></label></td><td><%= text_field('mail', 'subject', {"size"=>65}) %></td></tr>
   </table>
   <%= hidden_field('mail', 'from') %>
   <%= hidden_field('mail', 'content_type') %>
@@ -51,9 +51,9 @@
     </table>
   <% end %>
   <hr/>
-  <label for="attachment"><%=_('Attachment')%>:</label><%=%><input type="file" name="attachment"/> 
-  <input type="button" name="mail_add_attachement" value="<%=_('Add')%>"
-         onclick="getFormField('mail_op').value='<%=_('Add')%>';getFormField('composeMail').submit();">
+  <label for="attachment"><%= t :attachment %>:</label><%=%><input type="file" name="attachment"/> 
+  <input type="button" name="mail_add_attachement" value="<%= t :add %>"
+         onclick="getFormField('mail_op').value='<%= t :add %>';getFormField('composeMail').submit();">
 </div>
 </div>
 </div></div>

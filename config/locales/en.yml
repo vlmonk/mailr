@@ -1,0 +1,62 @@
+en:
+  mailr:          Mailr
+  email:          Email
+  password:       Password 
+  log_in:         Log In
+  wrong_email_or_password:  Wrong email or password specified.
+  mailbox:        Mailbox
+  folders:        Folders
+  empty:          Empty
+  logout:         Logout
+  compose:        Compose
+  preferences:    Preferences
+  filters:        Filters
+  contacts:       Contacts
+  search:         Search
+  search_txt:     Search in message field
+  refresh:        Refresh
+  operations:     Operations
+  operations_txt: Operations on marked messages
+  delete:         delete
+  copy:           copy
+  move:           move
+  mark_read:      mark read
+  mark_unread:    mark unread
+  destination_txt:  Destination for move and copy operations
+  for:            for
+  to:             To
+  subject:        Subject
+  date:           Date
+  size:           Size
+  from:           From
+  show_all:       Show all
+  pages:          Pages
+  first:          First
+  prev:           Prev
+  next:           Next
+  last:           Last
+  back_to_list:   Back to list
+  back_to_message:  Back to message
+  reply:          Reply
+  forward:        Forward
+  delete:         Delete
+  view_source:    View source
+  add_filter:     Add filter
+  cc:             CC
+  bcc:            BCC
+  send:           Send
+  choose_address: Choose addresses from contacts 
+  compose_txt:    Compose new mail
+  attachment:     Attachment
+  add:            Add
+  first_name:     First name
+  last_name:      Last name
+  send_type:      Send type message
+  messages_per_page:    Messages per page
+  check_external_mail:  Check external mail?
+  check_external_mail_txt:  Note that by selecting this option webmail system will try to log you using your original email on a local server.
+  save:           Save
+  cancel:         Cancel
+  add_one_contact:  Add one contact
+  add_multiple:   Add multiple 
+  name:           name

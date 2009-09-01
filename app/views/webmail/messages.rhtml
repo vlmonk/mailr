@@ -1,7 +1,7 @@
-<h1><%=_('Mailbox')%></h1>
+<h1><%= t :mailbox %></h1>
 <div id="header">
   <ul id="primary">
-      <li><span><%= _('Folders') %></span>
+      <li><span><%= t :folders %></span>
         <ul id="secondary">
             <li><%=link_refresh%></li>
         </ul>
@@ -23,24 +23,24 @@
   <div id="msglist">
     <h2><%= @folder_name %></h2>
     <%= form_tag({:controller=>'webmail', :action=>'messages'})%>
-    <div class='notviscode'><input type="submit" name="op" value="<%=_('Search')%>" /></div>
+    <div class='notviscode'><input type="submit" name="op" value="<%= t :search %>" /></div>
     <input type="hidden" name="page" value="<%=@page%>"/>
     
     <a href='#' onclick='toggle_msg_operations(true);'>
-      <%=_('Operations')%><img id='img_msgops' alt='open' src='/images/list_<%=@ops_img_src%>.gif'/>
+      <%=t :operations%><img id='img_msgops' alt='open' src='/images/list_<%=@ops_img_src%>.gif'/>
     </a>
     
     <div id="msgops" class='<%=@ops_class%>'>
-      <h4><%=_('Operations on marked messages')%></h4>
+      <h4><%= t :operations_txt %></h4>
       <span id="opch">
-             <%= submit_tag(_('delete'), :name=>'op')%>
-             <%= submit_tag(_('copy'), :name=> 'op')%>
-             <%= submit_tag(_('move'), :name=>'op')%>
-             <%= submit_tag(_('mark read'), :name=>'op')%>
-             <%= submit_tag(_('mark unread'), :name=>'op')%>
+             <%= submit_tag(t(:delete), :name=>'op')%>
+             <%= submit_tag(t(:copy), :name=> 'op')%>
+             <%= submit_tag(t(:move), :name=>'op')%>
+             <%= submit_tag(t(:mark_read), :name=>'op')%>
+             <%= submit_tag(t(:mark_unread), :name=>'op')%>
       </span><br/>
       <span id="destp">
-             <%=_('Destination for move and copy operations')%>&nbsp;
+             <%= t :destination_txt %>&nbsp;
              <select name="cpdest" size="1">
                <% for folder in @folders %>
                <option value="<%=folder.name%>"><%=folder.name%></option>
@@ -55,13 +55,13 @@
         <tr>
           <th width="1%"><input type="checkbox" name="allbox" onclick="checkAll(this.form)" style="margin: 0 0 0 4px" /></th>
     <% if @folder_name == CDF::CONFIG[:mail_sent] %>
-          <th width="20%"><%= link_to(_('To'), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'to_flat')%></th>
+          <th width="20%"><%= link_to(t(:to), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'to_flat')%></th>
     <% else %>
-          <th width="20%"><%= link_to(_('From'), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'from_flat')%></th>
+          <th width="20%"><%= link_to(t(:from), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'from_flat')%></th>
     <% end%>
-          <th width='60%'><%= link_to(_('Subject'), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'subject')%></th>
-          <th><%= link_to(_('Date'), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'date')%></th>
-          <th><%= link_to(_('Size'), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'size')%></th>
+          <th width='60%'><%= link_to(t(:subject), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'subject')%></th>
+          <th><%= link_to(t(:date), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'date')%></th>
+          <th><%= link_to(t(:size), :controller=>'/webmail/webmail', :action=>'messages', :op=>'SORT', :page=>@page, :scc=>'size')%></th>
           <th>&nbsp;</th>
         </tr>
       </thead>

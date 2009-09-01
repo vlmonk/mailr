@@ -1,13 +1,13 @@
   <a href='#' onclick='toggle_msg_search(true);'>
-    <%=_('Search')%><img id='img_msg_search' alt='open' src='/images/list_<%=@srch_img_src%>.gif'/>
+    <%= t :search%><img id='img_msg_search' alt='open' src='/images/list_<%=@srch_img_src%>.gif'/>
   </a>
   <div id="msg_search" class='<%=@srch_class%>'> 
-  <%=_('Search in message field')%>&nbsp;
+  <%= t :search_txt %>&nbsp;
   <select name="search_field">
       <%= options_for_select(CDF::CONFIG[:mail_search_fields], @search_field)%>
     </select>&nbsp;
-    <label for="search_value"><%=_('for')%></label>&nbsp;
+    <label for="search_value"><%= t :for %></label>&nbsp;
     <input type="text" name="search_value" value="<%=@search_value%>" size='16' id='search_value'/>&nbsp;
-    <%= submit_tag(_('Search'), :name=>'op')%>&nbsp;
-    <%= submit_tag(_('Show all'), :name=>'op')%>
+    <%= submit_tag(t(:search), :name=>'op')%>&nbsp;
+    <%= submit_tag(t(:show_all), :name=>'op')%>
   </div>        

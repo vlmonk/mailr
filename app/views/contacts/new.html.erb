@@ -5,11 +5,11 @@
     <li><%=link_send_mail%></li>
     <li><%=link_mail_prefs%></li>
     <li><%=link_mail_filters%></li>
-    <li><span><%= _('Contacts') %></span>
+    <li><span><%= t :contacts %></span>
       <ul id="secondary">
         <li><%=link_contact_list%></li>
 	<% if ret = session["return_to"] %>
-	<li><%=link_to(_('Back to message'), ret) %></li>
+	<li><%=link_to(t(:back_to_message), ret) %></li>
 	<% end %>
       </ul>
     </li>
@@ -25,9 +25,9 @@
     <%= form_input(:hidden_field, 'contact', 'customer_id') %>
   
     <table>
-      <%= form_input(:text_field, 'contact', 'fname', _('First name'), 'class'=>'two_columns') %>
-      <%= form_input(:text_field, 'contact', 'lname', _('Last name'), 'class'=>'two_columns') %>
-      <%= form_input((@contact.new_record? ? :text_field : :read_only_field), 'contact', 'email', _('E-mail'), 'class'=>'two_columns')%>
+      <%= form_input(:text_field, 'contact', 'fname', t(:first_name), 'class'=>'two_columns') %>
+      <%= form_input(:text_field, 'contact', 'lname', t(:last_name), 'class'=>'two_columns') %>
+      <%= form_input((@contact.new_record? ? :text_field : :read_only_field), 'contact', 'email', t(:email), 'class'=>'two_columns')%>
     </table>
   
     <% for group in @contactgroups %>

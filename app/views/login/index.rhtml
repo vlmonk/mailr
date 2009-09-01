@@ -18,16 +18,16 @@
       <form action="<%=url_for(:controller => 'login', :action => 'authenticate')%>" method="post">
 	<table class="form_layout">
 	  <tr>
-	    <th><label for="<%=_('Email')%>"><%=_('Email')%>:</label></th>
+	    <th><label for="email"><%= t :email %>:</label></th>
 	    <td><%= text_field "login_user", "email" %></td>
 	  </tr>
 	  <tr>
-	    <th><label for="<%=_('Password')%>"><%=_('Password')%>:</label></th>
+	    <th><label for="password"><%= t :password %>:</label></th>
 	    <td><%= password_field "login_user", "password" %></td>
 	  </tr>
 	  <tr>
 	    <td colspan="2" class="form_actions">
-	      <input type="submit" name="submit" value="<%= _('Log In') %>"/>
+	      <input type="submit" name="submit" value="<%= t :log_in %>"/>
 	    </td>
 	  </tr>
 	</table>

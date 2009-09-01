@@ -1,16 +1,16 @@
-<h1><%= _('Contacts')%></h1>
+<h1><%= t :contacts %></h1>
 <div id="header">
   <ul id="primary">
     <li><%=link_folders%></li>
     <li><%=link_send_mail%></li>
     <li><%=link_mail_prefs%></li>
     <li><%=link_mail_filters%></li>
-    <li><span><%= _('Contacts') %></span>
+    <li><span><%= t :contacts %></span>
       <ul id="secondary">
         <li><%=link_contact_add_one%></li>
         <li><%=link_contact_add_multiple%></li>
 	<% if ret = session["return_to"] %>
-	<li><%=link_to(_('Back to message'), ret) %></li>
+	<li><%=link_to(t(:back_to_message), ret) %></li>
 	<% end %>
       </ul>
     </li>
@@ -33,7 +33,7 @@
               <%= link_to letter, contacts_path(:letter => letter) %>
             <% end %>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <%= link_to _('Show all'), contacts_path %>
+            <%= link_to t(:show_all), contacts_path %>
           </td>
         </tr>
         <tr>
@@ -41,9 +41,9 @@
         </tr>
         <% if @mode == "choose" %>	
         <tr>
-          <th><%= _('To&nbsp;CC&nbsp;BCC')%></th>
-          <th><%= _('Name')%></th>
-          <th><%= _('E-mail')%></th>
+          <th><%= "#{t :to}&nbsp;#{t :cc}&nbsp;#{t :bcc}" %></th>
+          <th><%= t :name %></th>
+          <th><%= t :email %></th>
         </tr>	
 <%  for contact in @contacts %>
         <tr class="<%= alternator %>">

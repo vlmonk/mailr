@@ -64,7 +64,6 @@ rescue LoadError
 end
 
 require 'tmail_patch'
-require 'gettext_extension'
 $KCODE = 'u'
 require 'jcode'
 

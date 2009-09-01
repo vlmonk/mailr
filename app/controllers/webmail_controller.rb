@@ -48,23 +48,23 @@ class WebmailController < ApplicationController
     end
     
     case operation_param
-    when _('copy') # copy
+    when t(:copy) # copy
       msg_ids = []
       messages_param.each { |msg_id, bool| 
         msg_ids << msg_id.to_i if bool == BOOL_ON and dst_folder != @folder_name }  if messages_param
       folder.copy_multiple(msg_ids, dst_folder) if msg_ids.size > 0 
-    when _('move') # move
+    when t(:move) # move
       msg_ids = []
       messages_param.each { |msg_id, bool| 
         msg_ids << msg_id.to_i if bool == BOOL_ON and dst_folder != @folder_name } if messages_param
       folder.move_multiple(msg_ids, dst_folder) if msg_ids.size > 0 
-    when _('delete') # delete
+    when t(:delete) # delete
       msg_ids = []
       messages_param.each { |msg_id, bool| msg_ids << msg_id.to_i if bool == BOOL_ON } if messages_param
       folder.delete_multiple(msg_ids) if msg_ids.size > 0
-    when _('mark read') # mark as read
+    when t(:mark_read) # mark as read
       messages_param.each { |msg_id, bool| msg = folder.mark_read(msg_id.to_i) if bool == BOOL_ON }  if messages_param
-    when _('mark unread') # mark as unread
+    when t(:mark_unread) # mark as unread
       messages_param.each { |msg_id, bool| msg = folder.mark_unread(msg_id.to_i) if bool == BOOL_ON }  if messages_param
     when "SORT"
       session['lsort'] = sort_query = params["scc"]

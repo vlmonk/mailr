@@ -26,7 +26,7 @@ class LoginController < ApplicationController
       end
     else
       @login_user = Customer.new
-      flash["error"] = _('Wrong email or password specified.')
+      flash["error"] = t :wrong_email_or_password
       redirect_to :action => "index" 
     end
   end

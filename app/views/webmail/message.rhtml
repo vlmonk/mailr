@@ -1,7 +1,7 @@
-<h1><%=_('Mailbox')%></h1>
+<h1><%=t :mailbox %></h1>
 <div id="header">
   <ul id="primary">
-      <li><span><%= _('Folders') %></span>
+      <li><span><%= t :folders %></span>
         <ul id="secondary">
             <li><%=link_refresh%></li>
         </ul>
@@ -24,7 +24,7 @@
   <div id="topmenu">
     <ul class="actionmenu">
       <li>
-      <%= link_to(_("&#171; Back to list"), :controller=>"webmail", :action=>"messages") %>
+      <%= link_to("&#171; #{t :back_to_list}", :controller=>"webmail", :action=>"messages") %>
       </li>
       <li><%=link_reply_to_sender(@msg_id)%></li>
       <li><%=link_forward_message(@msg_id)%></li>

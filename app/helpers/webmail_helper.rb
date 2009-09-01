@@ -3,16 +3,12 @@ require 'mail2screen'
 
 module WebmailHelper
   include Mail2Screen
-  def link_folders
-    link_to(_('Folders'), :controller=>"webmail", :action=>"messages")
-  end
-  
   def link_compose_new
-    link_to(_('Compose new mail'), :controller=>"webmail", :action=>"compose")
+    link_to(t(:compose_txt), :controller=>"webmail", :action=>"compose")
   end
   
   def link_refresh
-    link_to(_('Refresh'), :controller=>"webmail", :action=>"refresh")
+    link_to(t(:refresh), :controller=>"webmail", :action=>"refresh")
   end
   
   def link_message_list
@@ -20,23 +16,23 @@ module WebmailHelper
   end
   
   def link_reply_to_sender(msg_id)
-    link_to(_('Reply'), :controller=>"webmail", :action=>"reply", :params=>{"msg_id"=>msg_id})
+    link_to(t(:reply), :controller=>"webmail", :action=>"reply", :params=>{"msg_id"=>msg_id})
   end
   
   def link_forward_message(msg_id)
-    link_to(_('Forward'), :controller=>"webmail", :action=>"forward", :params=>{"msg_id"=>msg_id})
+    link_to(t(:forward), :controller=>"webmail", :action=>"forward", :params=>{"msg_id"=>msg_id})
   end
   
   def link_flag_for_deletion(msg_id)
-    link_to(_('Delete'), :controller=>"webmail", :action=>"delete", :params=>{"msg_id"=>msg_id})
+    link_to(t(:delete), :controller=>"webmail", :action=>"delete", :params=>{"msg_id"=>msg_id})
   end
   
   def link_view_source(msg_id)
-    link_to(_('View source'), {:controller=>"webmail", :action=>"view_source", :params=>{"msg_id"=>msg_id}}, {'target'=>"_blank"})
+    link_to(t(:view_source), {:controller=>"webmail", :action=>"view_source", :params=>{"msg_id"=>msg_id}}, {'target'=>"_blank"})
   end
   
   def link_filter_add
-    link_to(_('Add filter'), :controller=>'webmail', :action=>'filter_add')
+    link_to(t(:add_filter), :controller=>'webmail', :action=>'filter_add')
   end
   
   def folder_link(folder)
@@ -103,7 +99,7 @@ module WebmailHelper
   def page_navigation_webmail(pages)
     nav = "<p class='paginator'><small>"
     
-    nav << "(#{pages.length} #{_('Pages')}) &nbsp; "
+    nav << "(#{pages.length} #{t :pages}) &nbsp; "
     
     window_pages = pages.current.window.pages
     nav << "..." unless window_pages[0].first?
@@ -117,10 +113,10 @@ module WebmailHelper
     nav << "..." unless window_pages[-1].last?
     nav << " &nbsp; "
     
-    nav << link_to(_('First'), :controller=>"webmail", :action=>'messages', :page=>@pages.first.number) << " | " unless @pages.current.first?
-    nav << link_to(_('Prev'), :controller=>"webmail", :action=>'messages', :page=>@pages.current.previous.number) << " | " if @pages.current.previous
-    nav << link_to(_('Next'), :controller=>"webmail", :action=>'messages', :page=>@pages.current.next.number) << " | " if @pages.current.next
-    nav << link_to(_('Last'), :controller=>"webmail", :action=>'messages', :page=>@pages.last.number) << " | " unless @pages.current.last?
+    nav << link_to(t(:first), :controller=>"webmail", :action=>'messages', :page=>@pages.first.number) << " | " unless @pages.current.first?
+    nav << link_to(t(:prev), :controller=>"webmail", :action=>'messages', :page=>@pages.current.previous.number) << " | " if @pages.current.previous
+    nav << link_to(t(:next), :controller=>"webmail", :action=>'messages', :page=>@pages.current.next.number) << " | " if @pages.current.next
+    nav << link_to(t(:last), :controller=>"webmail", :action=>'messages', :page=>@pages.last.number) << " | " unless @pages.current.last?
     
     nav << "</small></p>"
     
@@ -161,7 +157,7 @@ module WebmailHelper
   private
 
   def empty_trash_link(folder_name)
-    link_to(_('(Empty)'),
+    link_to( "(#{t :empty})",
       { :controller => "webmail", :action => "empty", :params=>{"folder_name"=>folder_name}},
       :confirm => _('Do you really want to empty trash?')) 
   end

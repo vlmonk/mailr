@@ -6,16 +6,16 @@ module Mail2Screen
     
     ret = "<table class='messageheader' border='0' cellpadding='0' cellspacing='0' >\n"
     ret << "<tbody>\n"
-    ret << "  <tr><td class='label' nowrap='nowrap'>#{_('From')}:</td><td>#{address(mail.from_addrs, @msg_id)}</td></tr>\n"
-    ret << "  <tr><td class='label' nowrap='nowrap'>#{_('To')}:</td><td>#{address(mail.to_addrs, @msg_id)}</td></tr>\n"
+    ret << "  <tr><td class='label' nowrap='nowrap'>#{t :from}:</td><td>#{address(mail.from_addrs, @msg_id)}</td></tr>\n"
+    ret << "  <tr><td class='label' nowrap='nowrap'>#{t :to}:</td><td>#{address(mail.to_addrs, @msg_id)}</td></tr>\n"
     if @mail.cc_addrs
-      ret << "  <tr><td class='label' nowrap='nowrap'>#{_('CC')}:</td><td>#{address(mail.cc_addrs, @msg_id)}</td></tr>\n"
+      ret << "  <tr><td class='label' nowrap='nowrap'>#{t :cc}:</td><td>#{address(mail.cc_addrs, @msg_id)}</td></tr>\n"
     end
     if @mail.bcc_addrs
-      ret << "  <tr><td class='label' nowrap='nowrap'>#{_('BCC')}:</td><td>#{address(mail.bcc_addrs, @msg_id)}</td></tr>\n"
+      ret << "  <tr><td class='label' nowrap='nowrap'>#{t :bcc}:</td><td>#{address(mail.bcc_addrs, @msg_id)}</td></tr>\n"
     end
-    ret << "  <tr><td class='label' nowrap='nowrap'>#{_('Subject')}:</td><td>#{h(mime_encoded?(mail.subject) ? mime_decode(mail.subject) : mail.subject)}</dd>\n"  
-    ret << "  <tr><td class='label' nowrap='nowrap'>#{_('Date')}:</td><td>#{h message_date(mail.date)}</td></tr>\n"
+    ret << "  <tr><td class='label' nowrap='nowrap'>#{t :subject}:</td><td>#{h(mime_encoded?(mail.subject) ? mime_decode(mail.subject) : mail.subject)}</dd>\n"  
+    ret << "  <tr><td class='label' nowrap='nowrap'>#{t :date}:</td><td>#{h message_date(mail.date)}</td></tr>\n"
     if footer != ''
     	ret << "  <tr><td class='label' nowrap='nowrap'>#{image_tag('attachment.png')}</td><td>#{footer}</td></tr>\n"
     end

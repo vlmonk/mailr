@@ -1,7 +1,6 @@
 # The filters added to this controller will be run for all controllers in the application.
 # Likewise will all the methods added be available for all controllers.
 class ApplicationController < ActionController::Base
-  before_filter :localize
   before_filter :user_login_filter
   before_filter :add_scripts
   
@@ -162,7 +161,12 @@ class ApplicationController < ActionController::Base
       </script>'
     tinymce
   end
+
+  def _(text)
+    t text
+  end
   
-  helper_method :include_simple_tinymce
+  helper_method :include_simple_tinymce, :_
+
 
 end

@@ -1,5 +1,5 @@
 <div id="folders">
-  <h4><%=_('Folders')%><br/><%= link_to 'add/edit', folders_path %></h4>
+  <h4><%=t :folders %><br/><%= link_to 'add/edit', folders_path %></h4>
   <hr/>
   <ul>
     <% @folders.each do |folder| -%>
@@ -8,5 +8,5 @@
   </ul>
 </div>
 <div style="text-align: center; padding: 10px;">
-  <input type="button" value="<%= _('Logout')%>" onclick="window.location='/login/logout'">
+  <input type="button" value="<%= t :logout %>" onclick="window.location='/login/logout'">
 </div>
