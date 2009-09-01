@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :folders, :requirements => {:id => /[^\/]+/}
   map.resources :contacts
+  map.resources :contact_groups
 
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.

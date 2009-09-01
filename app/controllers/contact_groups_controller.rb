@@ -1,17 +1,9 @@
-class Contacts::ContactGroupController < ApplicationController
-
-  uses_component_template_root
-
-  model :contact_group
+class ContactGroupsController < ApplicationController
   layout 'public'
   
   def index
-    redirect_to(:action=>"list")
-  end
-  
-  def list
-    @contactgroup = ContactGroup.new
-    @contactgroup.customer_id = logged_user
+    @contact_group = ContactGroup.new
+    @contact_group.customer_id = logged_user
     @contactgroups = ContactGroup.find_by_user(logged_user)
   end
   

@@ -1,6 +1,6 @@
 <h1><%=_('Contact Groups')%></h1>
 
-<form action="/contact_group/add" method="post">
+<%- form_for @contact_group do |f| %>
 <%= hidden_field "contactgroup", "user_id" %>
 <table class="list">
 	<tr>
@@ -23,4 +23,4 @@
 		</td>
 	</tr>
 </table>
-</form>	
+<%- end %>
