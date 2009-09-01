@@ -1,6 +1,6 @@
 module NavigationHelper
   def link_back_to_messages
-    link_to("&#171;" << _('Back to messages'), :controller=>"webmail", :action=>"messages")
+    link_to("&#171;" << t(:back_to_message), :controller=>"webmail", :action=>"messages")
   end
 
   def link_send_mail
@@ -19,7 +19,7 @@ module NavigationHelper
     if folder.name == CDF::CONFIG[:mail_trash] or folder.name == CDF::CONFIG[:mail_inbox] or folder.name == CDF::CONFIG[:mail_sent]
       short_fn(folder)
     else
-      short_fn(folder) + '&nbsp;' + link_to(_('Delete'), folder_path(folder.name), :method => :delete)
+      short_fn(folder) + '&nbsp;' + link_to(t(:delete), folder_path(folder.name), :method => :delete)
     end  
   end
 

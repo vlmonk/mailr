@@ -1,7 +1,7 @@
-<h1><%=_('Mailbox')%></h1>
+<h1><%=t :mailbox %></h1>
 <div id="header">
   <ul id="primary">
-    <li><span><%= _('Folders') %></span>
+    <li><span><%= t :folders %></span>
       <ul id="secondary">
           <li><%=link_back_to_messages%></li>
       </ul>
@@ -17,13 +17,13 @@
 
 <% content_for('sidebar') { %>  
 <div id="folders">
-  <h4><%=_('Add folder')%></h4>
+  <h4><%= t :add_folder %></h4>
   <hr/>
   <% form_tag folders_path, :id => 'new_folder' do %>
     <ul>
-      <li><label for='folder'><%=_('Name')%>:</label></li>
+      <li><label for='folder'><%= t :name %>:</label></li>
       <li><%= text_field_tag 'folder', '', :size => 18 %></li>
-      <li><%= submit_tag _('Add folder') %></li>
+      <li><%= submit_tag t(:add_folder) %></li>
     </ul>
   <% end %>
 </div>    
@@ -32,7 +32,7 @@
 <div id="messages">
   <div id='msg-fl-list'>
   <table>
-    <thead><tr><th><%=_('Folder')%></th><th><%= _('Total messages') %></th><th><%= _('Unseen') %></th></tr></thead>
+    <thead><tr><th><%= t :folder %></th><th><%= t :total_messages %></th><th><%= t :unseen%></th></tr></thead>
     <tbody>
   <% for folder in @folders %>
     <tr>

@@ -2,6 +2,9 @@ require 'tmail'
 require 'net/smtp'
 require 'mail_transform'
 
+module CDF
+end
+
 class CDF::Mail
 	include ActionMailer::Quoting
 	  

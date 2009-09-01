@@ -6,6 +6,7 @@ en:
   wrong_email_or_password:  Wrong email or password specified.
   mailbox:        Mailbox
   folders:        Folders
+  folder:         Folder
   empty:          Empty
   logout:         Logout
   compose:        Compose
@@ -60,4 +61,6 @@ en:
   add_one_contact:  Add one contact
   add_multiple:   Add multiple 
   name:           name
-
+  add_folder:     Add folder
+  total_messages: Total messages
+  unseen:         Unseen
